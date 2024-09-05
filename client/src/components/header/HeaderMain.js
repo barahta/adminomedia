@@ -1,25 +1,16 @@
 import style from './HeaderMain.module.scss'
-import Nav from "../navigate/Nav";
 
-function HeaderMain () {
+function HeaderMain ({page}) {
     return (
         <div className={style.main}>
-            <div className={style.container}>
-                <div className={style.back}>
+            <div className={style.logo}>
+                <img src="/files/header/logomain3.svg" alt=""/>
 
-                    <div className={style.upper}>
-                        <div className={style.logo}>
-                            <img src="/files/header/logo.webp" alt=""/>
-                        </div>
-                        <div className={style.nav}>
-                            <Nav />
-                        </div>
-                    </div>
-                    <div className={style.text}>
-                        <p>Создаём</p>
-                        <p>медиа</p>
-                    </div>
-                </div>
+            </div>
+            <div className={style.pages}>{page}/</div>
+            <div className={style.lk}>
+                <i className="fa-solid fa-user"/>
+                <div className={style.name}>Барахтянский Владимир Алексеевич</div>
             </div>
         </div>
     )
