@@ -5,7 +5,7 @@ import style from './CreatePostStyle.module.scss';
 
 const ITEM_TYPE = 'STROCK';
 
-function DraggableStrock({ strock, index, moveStrock }) {
+function DraggableStrock({ strock, index, moveStrock, deleteStrock }) {
     const [, ref] = useDrag({
         type: ITEM_TYPE,
         item: { index }
@@ -30,7 +30,7 @@ function DraggableStrock({ strock, index, moveStrock }) {
                 </div>
             </p>
             <div className={style.delete}>
-                <i className="fa-solid fa-trash"></i>
+                <i className="fa-solid fa-trash" onClick={()=>deleteStrock(index)}></i>
             </div>
         </div>
     );
@@ -98,20 +98,25 @@ function CreatePost() {
 
     const moveStrock = (fromIndex, toIndex) => {
         const updatedContent = [...view];
-        const [movedItem] = updatedContent.splice(fromIndex, 1);
-        updatedContent.splice(toIndex, 0, movedItem);
+        const [movedItem] = updatedContent.splice(fromIndex, 1); // Удалить элемент из старой позиции
+        updatedContent.splice(toIndex, 0, movedItem); // Вставить его в новую позицию
 
-        setView((prevView) => ({
-            ...prevView,
-            content: updatedContent
-        }));
+        setView(updatedContent); // Сохраняем обновленный массив
     };
 
     const updateText = () => {
         const newview = [...view]
         if(textpost.length > 0){
-
+            newview.push(textpost)
+            setView(newview)
+            setTextpost('')
         }
+    }
+
+    const deleteStrock = (index) => {
+        const newView = [...view];  // Создаём копию массива
+        newView.splice(index, 1);   // Удаляем элемент по индексу
+        setView(newView);
     }
 
     const handleFileUpload = (event) => {
@@ -164,7 +169,7 @@ function CreatePost() {
 
                 <div className={style.center}>
                     <div className={style.nameblock}>Содержание новости</div>
-                    <textarea className={style.desc}  onChange={(e)=>setTextpost(e.target.value)}>{textpost}</textarea>
+                    <textarea className={style.desc}  onChange={(e)=>setTextpost(e.target.value)} value={textpost}></textarea>
                     <div className={style.btnplus} onClick={updateText}>Добавить </div>
                     <div className={style.listp}>
                         {view.map((strock, index) => (
@@ -173,6 +178,7 @@ function CreatePost() {
                                 index={index}
                                 strock={strock}
                                 moveStrock={moveStrock}
+                                deleteStrock={deleteStrock}
                             />
                         ))}
                     </div>
