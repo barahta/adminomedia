@@ -1,0 +1,60 @@
+.bodymain{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //justify-content: flex-start;
+  width: 100vw;
+  height: 100vh;
+  background-color: #E1E1E1;
+  .main{
+    width: 100%;
+    max-width: 1920px;
+    height: calc(100% - 80px);
+    display: flex;
+
+  }
+  .leftpath{
+    width: 300px;
+    height: 100%;
+    margin-right: 20px;
+  }
+  .centerpath{
+    width: calc(100% - 0px);
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    .pluspost{
+      width: 200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      border: 1px solid #CCC;
+      margin: 20px 0;
+      transition: 0.3s;
+      cursor: pointer;
+      i{
+        font-size: 20pt;
+        color: #CCC;
+        transition: 0.3s;
+      }
+      .namebtn{
+
+      }
+    }
+    .pluspost:hover{
+      border: 1px solid #454545;
+      transition: 0.3s;
+      i{
+        color: #410099;
+        transition: 0.3s;
+      }
+    }
+
+  }
+  .rightpath{
+    width: 80px;
+    margin-left: 20px;
+  }
+}
