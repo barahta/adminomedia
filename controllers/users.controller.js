@@ -16,7 +16,7 @@ class UsersController {
             if(!errors.isEmpty()) next(ApiError.BadRequest('Ошибка при валидации',errors.array()))
             const {tn,name,login,email,password} = req.body
             const userData = await userService.registration(tn,name,login,email,password)
-            res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000,httpOnly:true})
+            res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000*1000,httpOnly:true})
             console.log('/-/-/-/-/-/-/-/- к о н е ц -/-/-/-/-/-/-/-/-/-')
             console.log('/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-')
             console.log('/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-')
@@ -29,7 +29,7 @@ class UsersController {
         try{
             const {login,password} = req.body
             const userData = await userService.login(login,password)
-            res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000,httpOnly:true})
+            res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000*1000,httpOnly:true})
             return res.json(userData)
         }catch (e){
             next(e)
@@ -60,7 +60,7 @@ class UsersController {
         try{
             const refreshToken = req.cookies['refreshToken']
             const userData = await userService.refresh(refreshToken)
-            res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000,httpOnly:true}) // sameSite:'None',secure:true
+            res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000*1000,httpOnly:true}) // sameSite:'None',secure:true
             return res.json(userData)
         }catch (e){
             next(e)

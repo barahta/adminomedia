@@ -2,6 +2,8 @@ import React, {useRef,useEffect, useState} from 'react';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import style from './CreatePostStyle.module.scss';
+import NewsService from "../../services/NewsService";
+import {useMessage} from "../../hooks/message.hook";
 
 const ITEM_TYPE = 'STROCK';
 
@@ -36,7 +38,7 @@ function DraggableStrock({ strock, index, moveStrock, deleteStrock }) {
     );
 }
 
-function CreatePost() {
+function CreatePost({setActivemodal}) {
     const coms = [
         {
             name: 'OMEDIA!',
@@ -75,7 +77,7 @@ function CreatePost() {
             active: false
         }
     ]
-
+    const message = useMessage();
     const [publiccom, setPubliccom] = useState(coms)
 
     const [viewcom, setViewcom] = useState()
@@ -141,6 +143,29 @@ function CreatePost() {
         }
     };
 
+    const createPost = async () => {
+        try{
+            if(view.length>0 && namepost.length>0 && descpost.length>0){
+                const {data} = await NewsService.createPost({text: view, name: namepost, desc: descpost, image: imgpage, public: viewcom})
+                if(data){
+                    setView([])
+                    setNamepost('')
+                    setDescpost('')
+                    setTextpost('')
+                    setImgpage('')
+                    setActivemodal(false)
+                }else{
+                    message('Новость не создалась, попробуйте еще раз')
+                }
+            }else{
+                message('Есть незаполненные поля')
+            }
+
+        }catch(e){
+            console.log(e)
+        }
+    }
+
     useEffect(()=>{
         setViewcom(coms)
     }, [])
@@ -200,7 +225,7 @@ function CreatePost() {
                         </div>
                     </div>
                     <div className={style.bottom}>
-                        <div className={style.saving}>
+                        <div className={style.saving} onClick={createPost}>
                             <i className="fa-regular fa-floppy-disk"/>
                             <div className={style.text}>Сохранить</div>
                         </div>

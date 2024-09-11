@@ -182,7 +182,7 @@ function News () {
     },[])
     return (
         <div className={style.bodymain}>
-            <BigModal data={<CreatePost news={data}/>} activemodal={activemodal} setActivemodal={setActivemodal} setData={setData}/>
+            <BigModal data={<CreatePost news={data} setActivemodal={setActivemodal}/>} activemodal={activemodal} setActivemodal={setActivemodal} setData={setData}/>
             <HeaderMain page={'./Новости'}/>
             <div className={style.main}>
                 <div className={style.leftpath}>

@@ -62,11 +62,30 @@ Skills.hasMany(Documents, { foreignKey: 'skill_id', as: 'documents' });
 Documents.belongsTo(Skills, { foreignKey: 'skill_id', as: 'skill' });
 
 const News = sequelize.define('news',{
-    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    title:{type:DataTypes.TEXT},
-    desc:{type:DataTypes.TEXT},
-    public:{type:DataTypes.TEXT},
-    image:{type:DataTypes.TEXT}
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    title: {
+        type: DataTypes.TEXT
+    },
+    desc: {
+        type: DataTypes.TEXT
+    },
+    text: {
+        type: DataTypes.JSONB, // Хранение массива строк
+        allowNull: false,
+        defaultValue: [] // По умолчанию пустой массив
+    },
+    public: {
+        type: DataTypes.JSONB, // Хранение массива объектов
+        allowNull: false,
+        defaultValue: [] // По умолчанию пустой массив
+    },
+    image: {
+        type: DataTypes.TEXT
+    }
 })
 
 const Sites = sequelize.define('sites',{

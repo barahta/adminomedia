@@ -16,6 +16,16 @@ class NewsController {
         }
     }
 
+    async createPost(req, res, next) {
+        try {
+            const post = req.body
+            const news = await NewsService.createPost(post)
+            return res.status(200).json(news)
+        } catch (e) {
+            next(e)
+        }
+    }
+
 }
 
 module.exports = new NewsController()
