@@ -95,7 +95,33 @@ const Sites = sequelize.define('sites',{
     image:{type:DataTypes.TEXT}
 })
 
+const AUPs = sequelize.define('aup',{
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    firstname: {
+        type: DataTypes.TEXT
+    },
+    secondname: {
+        type: DataTypes.TEXT
+    },
+    lastname: {
+        type: DataTypes.TEXT
+    },
+    developers: {
+        type: DataTypes.TEXT
+    },
+    email: {
+        type: DataTypes.TEXT
+    },
+    image: {
+        type: DataTypes.TEXT
+    }
+})
+
 
 module.exports = {
-    User,Token,Skills,Developers,SkillDeveloper,Documents,News, Sites
+    User,Token,Skills,Developers,SkillDeveloper,Documents,News, Sites,AUPs
 }

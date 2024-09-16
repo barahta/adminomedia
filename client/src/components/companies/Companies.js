@@ -2,6 +2,7 @@ import style from './Companies.module.scss'
 import BigModal from "../modalwin/BigModal";
 import CreateCom from "./CreateCom";
 import {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
 
 function Companies (){
 
@@ -25,6 +26,10 @@ function Companies (){
         <div className={style.main}>
 
             <BigModal data={<CreateCom setNewcom={setNewcom} setActivemodal={setActivemodal}/>} activemodal={activemodal} setActivemodal={setActivemodal} setData={setData}/>
+            <Link to='/company?com=omedia' className={style.company} >
+                <img src="/files/logos/omedia.svg" alt=""/>
+                <div className={style.active}></div>
+            </Link>
             <div className={style.company}>
                 <img src="/files/companies/hopekids.svg" alt=""/>
                 <div className={style.active}></div>

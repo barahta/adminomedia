@@ -25,7 +25,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     .pluspost{
-      width: 200px;
+      width: 250px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -57,4 +57,111 @@
     width: 80px;
     margin-left: 20px;
   }
+}
+.menu{
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  .point{
+    width: 260px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #FFF;
+    color: #454545;
+    text-decoration: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .point:hover{
+    //box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    background-color: #f1fcf9;
+    transition: 0.2s;
+
+  }
+}
+.list{
+  width: calc(100% - 60px);
+  padding: 0 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 200px;
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .blockman{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    animation: fadeInUp 0.6s forwards;
+    //opacity: 0;
+    //transform: translateY(50px);
+    //transition: opacity 0.6s ease, transform 0.6s ease;
+    margin: 0 4px;
+    //&.visible {
+    //  opacity: 1;
+    //  transform: translateY(0);
+    //}
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+
+    /* Анимация появления блока */
+
+    .photo{
+      width: calc(1920px / 4 - 50px);
+      height: calc(1920px / 3 - 50px);
+      max-width: 300px;
+      max-height: 400px;
+      background-image: url("../imgs/avatar.png");
+      background-size: cover;
+      background-position: center center;
+      margin: 30px 30px 5px 30px;
+    }
+    .fio{
+      width: calc(1920px / 4 - 50px);
+      max-width: 300px;
+      .name{
+        font-weight: 600;
+      }
+    }
+    .dev{
+      width: calc(1920px / 4 - 50px);
+      max-width: 300px;
+    }
+    .btncontact{
+      width: calc(1920px / 4 - 50px);
+      max-width: 300px;
+      padding: 20px 0;
+      margin-top: 20px;
+      border: 1px solid #454545;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+    }
+    .btncontact:hover{
+      background-color: rgba(72,20,160,1);
+      border: 1px solid rgba(72,20,160,1);
+      transition: 0.3s ease-in-out;
+      color: #FFFFFF;
+    }
+  }
+
+}
+.plusman{
+
 }

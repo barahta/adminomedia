@@ -15,6 +15,9 @@
     background-color: aliceblue;
     position: relative;
     transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img{
       width: 100%;
     }

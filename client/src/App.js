@@ -9,6 +9,8 @@ import {observer} from "mobx-react-lite";
 import News from "./pages/News";
 import AuthRouter from "./pages/auth/AuthRouter";
 import {Context} from "./index";
+import Company from "./pages/Company";
+import AUP from "./pages/AUP";
 
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Main/>}/>
                     <Route path="/news" element={<News/>}/>
+                    <Route path="/company" element={<Company/>}/>
+                    <Route path="/aup" element={<AUP/>}/>
                 </Routes>
                 <ToastContainer/>
             </Router>

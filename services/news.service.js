@@ -1,11 +1,13 @@
 
 const config = require('config')
-const {News, Developers} = require('../models/models')
+const {News, Developers, AUPs} = require('../models/models')
 
 class NewsService {
     async getNews(){
         try{
-            return await News.findAll()
+            const news = await News.findAll()
+            console.log(news)
+            return news
         }catch(e){
             console.log(e)
         }
@@ -26,6 +28,33 @@ class NewsService {
             console.log(e)
         }
 
+
+    }
+
+    async getAUP(){
+        try{
+            const mans = await AUPs.findAll()
+            return mans
+        }catch(e){
+            console.log(e)
+        }
+
+    }
+    async plusAUP(plus){
+        console.log(plus)
+        const firstname = plus.post.firstname
+        const secondname = plus.post.secondname
+        const lastname = plus.post.lastname
+        const developer = plus.post.developer
+        const email = plus.post.email
+        const image = plus.post.image
+        try{
+            const man = await AUPs.create({firstname: firstname, secondname: secondname, lastname: lastname, developers: developer, email: email, image: image })
+            return man
+        }catch(e){
+            console.log(e)
+        }
+        return ''
 
     }
 

@@ -25,6 +25,24 @@ class NewsController {
             next(e)
         }
     }
+    async plusAUP(req, res, next) {
+        try {
+            const plus = req.body
+            const man = await NewsService.plusAUP(plus)
+            return res.status(200).json(man)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getAUP(req, res, next) {
+        try {
+            const mans = await NewsService.getAUP()
+            return res.status(200).json(mans)
+        } catch (e) {
+            next(e)
+        }
+    }
+
 
 }
 
