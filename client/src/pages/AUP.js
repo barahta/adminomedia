@@ -8,6 +8,7 @@ import CreatePost from "../components/news/CreatePost";
 import * as PropTypes from "prop-types";
 import PlusAUP from "../components/forms/PlusAUP";
 import NewsService from "../services/NewsService";
+import DeleteMan from "../components/forms/DeleteMan";
 
 
 
@@ -28,7 +29,7 @@ function AUP () {
     const [thisPost, setThisPost] = useState({})
     const [people, setPeople] = useState([])
     const [activedel, setActivedel] = useState(false)
-    const [mandel, setMandel] = useState(false)
+    const [mandel, setMandel] = useState({})
 
     const getMans = async()=>{
         try{
@@ -45,17 +46,24 @@ function AUP () {
     return (
         <div className={style.bodymain}>
             <BigModal data={<PlusAUP man={data} setActivemodal={setPlusman}/>} activemodal={plusman} setActivemodal={setPlusman} setData={setData}/>
-            <BigModal data={<PlusAUP man={mandel} setActivemodal={setActivedel}/>} activemodal={activedel} setActivemodal={setActivedel} setData={setPeople}/>
+            <BigModal data={<DeleteMan man={mandel} setActivemodal={setActivedel} setMandel={setMandel}/>} activemodal={activedel} setActivemodal={setActivedel} setData={setData}/>
             <HeaderMain page={`./${company}`}/>
             <div className={style.main}>
                 <div className={style.leftpath}>
                     <Navigation />
                 </div>
                 <div className={style.centerpath}>
-                    <div className={style.pluspost} onClick={()=>setPlusman(true)}>
-                        <i className="fa-solid fa-plus"/>
-                        <div className={style.namebtn}>Добавить сотрудника</div>
+                    <div className={style.nav}>
+                        <Link to={`/company?com=${company}`} className={style.back}>
+                            <i className="fa-solid fa-rotate-left"/>
+                            <div className={style.namebtn}>Назад</div>
+                        </Link>
+                        <div className={style.pluspost} onClick={()=>setPlusman(true)}>
+                            <i className="fa-solid fa-plus"/>
+                            <div className={style.namebtn}>Добавить сотрудника</div>
+                        </div>
                     </div>
+
                     {(company)&&(
                         <div className={style.list}>
                             {people.map((man, index) => (
@@ -72,7 +80,7 @@ function AUP () {
                                     </div>
                                     <div className={style.dev}>{man.developers}</div>
                                     <div className={style.btncontact} onClick={() => {setActivemodal(true);setData(man)}}>Написать</div>
-                                    <div className={style.btncontact} onClick={() => setActivedel(true)}>Удалить</div>
+                                    <div className={style.btncontact} onClick={() => {setActivedel(true); setMandel(man)}}>Удалить</div>
                                 </div>
                             ))}
                         </div>

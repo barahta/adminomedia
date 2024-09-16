@@ -1,7 +1,8 @@
 
 const config = require('config')
 const {News, Developers, AUPs} = require('../models/models')
-
+const ApiError = require("../exceptions/api.error");
+const {Sequelize} = require('sequelize')
 class NewsService {
     async getNews(){
         try{
@@ -57,6 +58,14 @@ class NewsService {
         return ''
 
     }
+    async delMan(man){
+        console.log(man)
+        const idman = +man.man.id
+        console.log(idman)
+        const deleted = await AUPs.findByPk(idman)
+        return await deleted.destroy()
+    }
+
 
 
 }

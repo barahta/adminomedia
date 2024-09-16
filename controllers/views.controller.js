@@ -42,7 +42,15 @@ class NewsController {
             next(e)
         }
     }
-
+    async delMan(req, res, next) {
+        try {
+            const man = req.body
+            const del = await NewsService.delMan(man)
+            return res.status(200).json(del)
+        } catch (e) {
+            next(e)
+        }
+    }
 
 }
 

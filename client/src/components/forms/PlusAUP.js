@@ -2,6 +2,7 @@ import style from './PlusAUPStyle.module.scss'
 import React, {useRef, useState} from "react";
 import NewsService from "../../services/NewsService";
 import {useMessage} from "../../hooks/message.hook";
+import imageCompression from 'browser-image-compression';
 
 function PlusAUP ({man, setActivemodal}) {
     const message = useMessage();
@@ -34,20 +35,37 @@ function PlusAUP ({man, setActivemodal}) {
         }
     }
 
-    const handleFileUpload = (event) => {
-        const formData = new FormData();
-        formData.append('image', event.target.files[0]);
+    const handleFileUpload = async (event) => {
+        const file = event.target.files[0];
 
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/api/upload`, {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                setImgpage(data.filePath);
+        // Настройки для сжатия
+        const options = {
+            maxSizeMB: 1, // Максимальный размер файла в мегабайтах
+            maxWidthOrHeight: 800, // Максимальная ширина или высота
+            useWebWorker: true, // Использовать веб-воркеры для сжатия (ускорение процесса)
+        };
+
+        try {
+            // Сжатие изображения
+            const compressedFile = await imageCompression(file, options);
+
+            // Отправка сжатого файла на сервер
+            const formData = new FormData();
+            formData.append('image', compressedFile);
+
+            fetch(`${process.env.REACT_APP_API_BASE_URL}/api/upload`, {
+                method: 'POST',
+                body: formData,
             })
-            .catch(error => console.error('Error uploading image:', error));
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    setImgpage(data.filePath);
+                })
+                .catch((error) => console.error('Error uploading image:', error));
+        } catch (error) {
+            console.error('Error compressing image:', error);
+        }
     };
 
     const handleClick = () => {
@@ -63,7 +81,7 @@ function PlusAUP ({man, setActivemodal}) {
                 <div className={style.photo}
 
                      onClick={handleClick}
-                     style={(imgpage.length>0)?{backgroundImage: `url('${imgpage}')`}:{backgroundImage: `url('files/mans/${man.photo}')`}}>
+                     style={{backgroundImage: `url('${imgpage}')`}}>
                     <div className={style.active}><i className="fa-solid fa-plus"/></div>
                     <input
                         type="file"

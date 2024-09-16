@@ -18,6 +18,34 @@ const errorMiddlewere = require('./middlewere/error.middlewere');
 const server = http.createServer(app);
 const io = new Server(server); // Инициализация Socket.IO
 
+// Настраиваем хранилище для видео
+const videoStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, 'client', 'public', 'videos')); // Папка для сохранения видео
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const extension = path.extname(file.originalname); // Получаем расширение файла
+        cb(null, file.fieldname + '-' + uniqueSuffix + extension); // Генерируем уникальное имя файла с расширением
+    }
+});
+
+// Настраиваем `multer` для загрузки видео с ограничением размера
+const uploadVideo = multer({
+    storage: videoStorage,
+    limits: { fileSize: 100 * 1024 * 1024 } // Ограничение размера файла (например, 100 MB)
+});
+
+// Маршрут для загрузки видео
+app.post('/api/uploadVideo', uploadVideo.single('video'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: 'No video uploaded' });
+    }
+
+    const videoPath = `/videos/${req.file.filename}`; // Возвращаем полный путь к файлу
+    res.json({ videoPath });
+});
+
 // Настраиваем хранилище для multer с сохранением оригинального имени и расширения файла
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

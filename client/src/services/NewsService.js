@@ -13,4 +13,8 @@ export default class NewsService{
     static plusAUP(post){
         return $api.post('/views/plusaup', {post})
     }
+    static delMan(man){
+        return $api.post('/views/delman', {man})
+    }
+
 }
