@@ -9,6 +9,8 @@ router.post('/createpost',authMiddlewere,NewsController.createPost)
 router.post('/plusaup',authMiddlewere,NewsController.plusAUP)
 router.get('/getaup',NewsController.getAUP)
 router.post('/delman',authMiddlewere,NewsController.delMan)
+router.post('/plusvideo',authMiddlewere,NewsController.plusVideo)
+
 
 
 module.exports = router

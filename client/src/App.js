@@ -11,6 +11,7 @@ import AuthRouter from "./pages/auth/AuthRouter";
 import {Context} from "./index";
 import Company from "./pages/Company";
 import AUP from "./pages/AUP";
+import VideoUploader from "./pages/VideoUploader";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
                     <Route path="/news" element={<News/>}/>
                     <Route path="/company" element={<Company/>}/>
                     <Route path="/aup" element={<AUP/>}/>
+                    <Route path="/promo" element={<VideoUploader/>}/>
                 </Routes>
                 <ToastContainer/>
             </Router>

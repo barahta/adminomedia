@@ -16,5 +16,8 @@ export default class NewsService{
     static delMan(man){
         return $api.post('/views/delman', {man})
     }
+    static plusVideo(video){
+        return $api.post('/views/plusvideo', {video})
+    }
 
 }

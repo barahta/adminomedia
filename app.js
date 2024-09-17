@@ -18,15 +18,32 @@ const errorMiddlewere = require('./middlewere/error.middlewere');
 const server = http.createServer(app);
 const io = new Server(server); // Инициализация Socket.IO
 
+// Определяем директорию для сохранения видео
+const videoDir = path.join(__dirname, 'client', 'public', 'videos');
+
+// Функция для очистки папки
+const clearVideoFolder = () => {
+    fs.readdir(videoDir, (err, files) => {
+        if (err) console.error('Ошибка при чтении папки:', err);
+        else {
+            for (const file of files) {
+                fs.unlink(path.join(videoDir, file), (err) => {
+                    if (err) console.error('Ошибка при удалении файла:', err);
+                });
+            }
+        }
+    });
+};
+
 // Настраиваем хранилище для видео
 const videoStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, 'client', 'public', 'videos')); // Папка для сохранения видео
+        // Очищаем папку перед загрузкой
+        clearVideoFolder();
+        cb(null, videoDir); // Папка для сохранения видео
     },
     filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const extension = path.extname(file.originalname); // Получаем расширение файла
-        cb(null, file.fieldname + '-' + uniqueSuffix + extension); // Генерируем уникальное имя файла с расширением
+        cb(null, 'video.mp4'); // Сохраняем видео с фиксированным именем
     }
 });
 
@@ -46,7 +63,7 @@ app.post('/api/uploadVideo', uploadVideo.single('video'), (req, res) => {
     res.json({ videoPath });
 });
 
-// Настраиваем хранилище для multer с сохранением оригинального имени и расширения файла
+// Настраиваем хранилище для загрузки изображений
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, 'client', 'public', 'images', 'company')); // Папка для сохранения
@@ -58,7 +75,6 @@ const storage = multer.diskStorage({
     }
 });
 
-// Настраиваем multer с новым хранилищем
 const upload = multer({
     storage: storage,
     limits: { fileSize: 5 * 1024 * 1024 } // Ограничение размера файла (5 MB)
@@ -85,21 +101,6 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
     res.json({ filePath });
 });
 
-// Маршрут для получения всех изображений
-app.get('/api/images', (req, res) => {
-    const imagesDir = path.join(__dirname, 'client', 'public', 'images', 'company');
-
-    fs.readdir(imagesDir, (err, files) => {
-        if (err) {
-            console.error('Unable to scan directory:', err);
-            return res.status(500).json({ error: 'Unable to scan directory' });
-        }
-
-        const imagePaths = files.map(file => `/images/company/${file}`);
-        res.json({ images: imagePaths }); // Возвращаем массив путей к изображениям
-    });
-});
-
 // Пример работы с WebSockets
 io.on('connection', (socket) => {
     console.log('A user connected');
@@ -123,7 +124,6 @@ const start = async () => {
             console.log('Server started on port:', PORT);
         });
 
-        // await sequelize.sync({ alter: true })
         await sequelize.authenticate();
         console.log('Connected to DB');
     } catch (e) {

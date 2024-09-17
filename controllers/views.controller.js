@@ -51,6 +51,19 @@ class NewsController {
             next(e)
         }
     }
+    async plusVideo(req, res, next) {
+        try {
+            const video = req.body
+            console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');
+            console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');
+            console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');
+            console.log(video)
+            const itog = await NewsService.plusVideo(video)
+            return res.status(200).json(itog)
+        } catch (e) {
+            next(e)
+        }
+    }
 
 }
 

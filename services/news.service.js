@@ -65,7 +65,10 @@ class NewsService {
         const deleted = await AUPs.findByPk(idman)
         return await deleted.destroy()
     }
-
+    async plusVideo(video){
+        console.log(video)
+        return ''
+    }
 
 
 }
