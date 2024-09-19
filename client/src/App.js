@@ -12,6 +12,7 @@ import {Context} from "./index";
 import Company from "./pages/Company";
 import AUP from "./pages/AUP";
 import VideoUploader from "./pages/VideoUploader";
+import Vakansii from "./pages/Vakansii";
 
 
 function App() {
@@ -42,6 +43,8 @@ function App() {
                     <Route path="/company" element={<Company/>}/>
                     <Route path="/aup" element={<AUP/>}/>
                     <Route path="/promo" element={<VideoUploader/>}/>
+                    <Route path="/vakansii" element={<Vakansii/>}/>
+
                 </Routes>
                 <ToastContainer/>
             </Router>

@@ -1,6 +1,6 @@
 
 const config = require('config')
-const {News, Developers, AUPs} = require('../models/models')
+const {News, Developers, AUPs, VakCompanies, Vakansii} = require('../models/models')
 const ApiError = require("../exceptions/api.error");
 const {Sequelize} = require('sequelize')
 class NewsService {
@@ -66,10 +66,87 @@ class NewsService {
         return await deleted.destroy()
     }
     async plusVideo(video){
-        console.log(video)
         return ''
     }
 
+    async plusComVak(com){
+        const name = com.com.name
+        const category = com.com.category
+        try{
+            const comvak = await VakCompanies.create({name: name, category: category})
+            return comvak
+        }catch(e){
+            console.log(e)
+        }
+
+    }
+    async getComVak(){
+        try{
+            const coms = await VakCompanies.findAll()
+            return coms
+        }catch(e){
+            console.log(e)
+        }
+
+    }
+    async delComVak(com){
+        console.log(com)
+        const idcom = +com.com.com.id
+        console.log(idcom)
+        const deleted = await VakCompanies.findByPk(idcom)
+        return await deleted.destroy()
+    }
+    async createVak(vak){
+        const name = vak.vak.name
+        const respon = vak.vak.respon
+        const requierments = vak.vak.requierments
+        const conditions = vak.vak.conditions
+        const keyskills = vak.vak.keyskills
+        const company = vak.vak.company
+        const email = vak.vak.email
+        try{
+            const itog = await Vakansii.create({name: name, respon:respon,requierments:requierments,conditions:conditions,keyskills:keyskills,company:company,email:email})
+            return itog
+        }catch(e){
+            console.log(e)
+        }
+
+    }
+    async getVakansii(){
+        try{
+            const vaks = await Vakansii.findAll()
+            return vaks
+        }catch(e){
+            console.log(e)
+        }
+
+    }
+    async editVak(vak){
+        console.log(vak)
+        const vak_id = vak.vak.id
+        const name = vak.vak.name
+        const respon = vak.vak.respon
+        const requierments = vak.vak.requierments
+        const conditions = vak.vak.conditions
+        const keyskills = vak.vak.keyskills
+        const company = vak.vak.company
+        const email = vak.vak.email
+        try{
+            const thisvak = await Vakansii.findByPk(vak_id)
+            thisvak.name = name
+            thisvak.respon = respon
+            thisvak.requierments = requierments
+            thisvak.conditions = conditions
+            thisvak.keyskills = keyskills
+            thisvak.company = company
+            thisvak.email = email
+            await thisvak.save()
+            return thisvak
+        }catch(e){
+            console.log(e)
+        }
+
+    }
 
 }
 module.exports = new NewsService()

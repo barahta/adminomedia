@@ -18,16 +18,16 @@ const errorMiddlewere = require('./middlewere/error.middlewere');
 const server = http.createServer(app);
 const io = new Server(server); // Инициализация Socket.IO
 
-// Определяем директорию для сохранения видео
-const videoDir = path.join(__dirname, 'client', 'public', 'videos');
+// Определяем базовую директорию для сохранения видео
+const baseVideoDir = path.join(__dirname, 'client', 'public', 'videos');
 
 // Функция для очистки папки
-const clearVideoFolder = () => {
-    fs.readdir(videoDir, (err, files) => {
+const clearVideoFolder = (directory) => {
+    fs.readdir(directory, (err, files) => {
         if (err) console.error('Ошибка при чтении папки:', err);
         else {
             for (const file of files) {
-                fs.unlink(path.join(videoDir, file), (err) => {
+                fs.unlink(path.join(directory, file), (err) => {
                     if (err) console.error('Ошибка при удалении файла:', err);
                 });
             }
@@ -38,9 +38,18 @@ const clearVideoFolder = () => {
 // Настраиваем хранилище для видео
 const videoStorage = multer.diskStorage({
     destination: (req, file, cb) => {
+        const company = req.params.company; // Получаем переменную company из параметров маршрута
+        const companyDir = path.join(baseVideoDir, company); // Определяем путь к папке компании
+
+        // Проверяем, существует ли папка компании
+        if (!fs.existsSync(companyDir)) {
+            return cb(new Error('Папка для компании не существует.'));
+        }
+
         // Очищаем папку перед загрузкой
-        clearVideoFolder();
-        cb(null, videoDir); // Папка для сохранения видео
+        clearVideoFolder(companyDir);
+
+        cb(null, companyDir); // Папка для сохранения видео
     },
     filename: (req, file, cb) => {
         cb(null, 'video.mp4'); // Сохраняем видео с фиксированным именем
@@ -54,12 +63,12 @@ const uploadVideo = multer({
 });
 
 // Маршрут для загрузки видео
-app.post('/api/uploadVideo', uploadVideo.single('video'), (req, res) => {
+app.post('/api/uploadVideo/:company', uploadVideo.single('video'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: 'No video uploaded' });
     }
 
-    const videoPath = `/videos/${req.file.filename}`; // Возвращаем полный путь к файлу
+    const videoPath = `/videos/${req.params.company}/video.mp4`; // Возвращаем полный путь к файлу
     res.json({ videoPath });
 });
 
@@ -124,7 +133,7 @@ const start = async () => {
             console.log('Server started on port:', PORT);
         });
 
-        await sequelize.authenticate();
+        // await sequelize.sync({ alter: true })
         console.log('Connected to DB');
     } catch (e) {
         console.log(e);

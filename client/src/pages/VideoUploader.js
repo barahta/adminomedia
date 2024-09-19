@@ -25,16 +25,16 @@ function VideoUploader () {
     const params = new URLSearchParams(location.search);
     const company = params.get('com');
 
-    const [data, setData] = useState('')
-    const [activemodal, setActivemodal] = useState(false)
-    const [news, setNews] = useState([])
-    const [plusman, setPlusman] = useState(false)
-    const [thisPost, setThisPost] = useState({})
-    const [people, setPeople] = useState([])
-    const [activedel, setActivedel] = useState(false)
-    const [mandel, setMandel] = useState({})
+    const [data, setData] = useState('');
+    const [activemodal, setActivemodal] = useState(false);
+    const [news, setNews] = useState([]);
+    const [plusman, setPlusman] = useState(false);
+    const [thisPost, setThisPost] = useState({});
+    const [people, setPeople] = useState([]);
+    const [activedel, setActivedel] = useState(false);
+    const [mandel, setMandel] = useState({});
     const fileInputRef = useRef(null);
-    const [videoSrc, setVideoSrc] = useState(`/videos/video.mp4#t=${random}`);
+    const [videoSrc, setVideoSrc] = useState(`/videos/${company}/video.mp4#t=${random}`);
     const [uploading, setUploading] = useState(false);
 
     const handleVideoUpload = async (event) => {
@@ -49,7 +49,7 @@ function VideoUploader () {
         setUploading(true);
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/uploadVideo`, {
+            const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/uploadVideo/${company}`, {
                 method: 'POST',
                 body: formData,
             });
@@ -57,7 +57,7 @@ function VideoUploader () {
             if (response.ok) {
                 const data = await response.json();
                 const uniqueVideoPath = `${data.videoPath}?t=${new Date().getTime()}`; // Добавляем временной штамп к URL
-                setVideoSrc(`/videos/${uniqueVideoPath}#t=${random}`); // Путь к видео с уникальным параметром
+                setVideoSrc(uniqueVideoPath); // Путь к видео с уникальным параметром
                 console.log('Видео успешно загружено:', uniqueVideoPath);
             } else {
                 console.error('Ошибка загрузки видео:', response.statusText);
@@ -67,7 +67,7 @@ function VideoUploader () {
             console.error('Ошибка во время загрузки видео:', error);
         } finally {
             setUploading(false);
-            window.location.reload()
+            window.location.reload();
         }
     };
 
@@ -79,8 +79,8 @@ function VideoUploader () {
     };
 
     useEffect(() => {
-        setVideoSrc(`/videos/video.mp4#t=${random}`);
-    }, []);
+        setVideoSrc(`/videos/${company}/video.mp4#t=${random}`);
+    }, [company]);
 
     return (
         <div className={style.bodymain}>

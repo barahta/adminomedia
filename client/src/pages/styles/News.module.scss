@@ -196,3 +196,211 @@
 .plusman{
 
 }
+.vakansii{
+  color: #454545;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 350px);
+  height: calc(100% - 20px);
+  .title{
+    font-weight: 600;
+    font-size: 30pt;
+    margin-left: 10px;
+    height: 60px;
+  }
+  .companies{
+    display: flex;
+    height: 200px;
+    width: 100%;
+    .inputcom{
+      width: 300px;
+      height: 50px;
+      outline: none;
+      border: 1px solid #CCC;
+      padding: 0 10px;
+      margin: 10px;
+    }
+    .pluscombtn{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 150px;
+      height: 50px;
+      outline: none;
+      border: 1px solid #CCC;
+      padding: 0 10px;
+      margin: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .pluscombtn:hover{
+
+      border: 1px solid #454545;
+      transition: 0.3s;
+    }
+    .listcom{
+      max-width: 750px;
+      padding: 10px;
+      min-height: 30px;
+      border: 1px solid #CCC;
+      margin: 10px;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      background-color: #FFFFFF;
+      .activecom{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid #CCC;
+        padding: 10px;
+        background-color: #F1F1F1;
+        margin: 10px;
+        animation-name: fadeIn;
+        animation-duration: 0.3s;
+        animation-fill-mode: forwards;
+        .namecom{
+          margin-right: 20px;
+        }
+        i{
+          cursor: pointer;
+          transition: 0.2s;
+        }
+        i:hover{
+          color: #ef40d2;
+          transition: 0.2s;
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          transform: scaleX(0);
+          opacity: 0;
+        }
+        to {
+          transform: scaleX(1);
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .newvak{
+    height: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: 1px solid #CCC;
+    .titlevak{
+      margin-left: 10px;
+      font-size: 20pt;
+    }
+    .plusvakbtn{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 150px;
+      height: 50px;
+      outline: none;
+      border: 1px solid #CCC;
+      padding: 0 10px;
+      margin: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .plusvakbtn:hover{
+      border: 1px solid #454545;
+      transition: 0.3s;
+    }
+  }
+  .listvak{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: calc(100% - 0px);
+    height: calc(100% - 320px);
+    overflow-y: auto;
+    .thisvak{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: calc(100% - 50px);
+      min-height: calc(100px);
+      //max-height: content-box;
+      border: 1px solid #CCC;
+      padding: 20px;
+      color: #454545;
+      margin-bottom: 20px;
+      .vakcompany{
+        font-size: 10pt;
+        color: #898989;
+        padding: 5px 10px;
+        border: 1px solid #CCC;
+        border-radius: 10px;
+        margin-bottom: 10px;
+      }
+      .vaktitle{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        .vakname{
+          font-size: 16pt;
+          font-weight: 600;
+        }
+        .active{
+          display: flex;
+          align-items: center;
+          .open{
+            margin-right: 20px;
+            i{
+              font-size: 20pt;
+              cursor: pointer;
+              transition: 0.2s;
+            }
+            i:hover{
+              color: #410099;
+              transition: 0.2s;
+            }
+          }
+          .openbtn{}
+          .btnoff{
+            width: 70px;
+            height: 30px;
+            border: 3px solid #454545;
+            position: relative;
+            border-radius: 5px;
+            cursor: pointer;
+            .sphere{
+              width: 30px;
+              height: 26px;
+              background-color: #454545;
+              position: absolute;
+              top: 2px;
+              left: 3px;
+              border-radius: 5px;
+            }
+          }
+          .btnon{
+            width: 70px;
+            height: 30px;
+            border: 3px solid #410099;
+            position: relative;
+            border-radius: 5px;
+            cursor: pointer;
+            .sphere{
+              width: 30px;
+              height: 26px;
+              background-color: #410099;
+              position: absolute;
+              top: 2px;
+              right: 3px;
+              border-radius: 5px;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}

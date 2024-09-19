@@ -96,32 +96,50 @@ const Sites = sequelize.define('sites',{
 })
 
 const AUPs = sequelize.define('aup',{
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+    id: {type: DataTypes.INTEGER,primaryKey: true,autoIncrement: true},
+    firstname: {type: DataTypes.TEXT},
+    secondname: {type: DataTypes.TEXT},
+    lastname: {type: DataTypes.TEXT},
+    developers: {type: DataTypes.TEXT},
+    email: {type: DataTypes.TEXT},
+    image: {type: DataTypes.TEXT}
+})
+const VakCompanies = sequelize.define('vakcompanies',{
+    id: {type: DataTypes.INTEGER,primaryKey: true,autoIncrement: true},
+    name: {type: DataTypes.TEXT},
+    category: {type: DataTypes.TEXT}
+})
+const Vakansii = sequelize.define('vakansii',{
+    id: {type: DataTypes.INTEGER,primaryKey: true,autoIncrement: true},
+    name: {type: DataTypes.TEXT},
+    respon: {
+        type: DataTypes.JSONB, // Хранение массива строк
+        allowNull: false,
+        defaultValue: [] // По умолчанию пустой массив
     },
-    firstname: {
-        type: DataTypes.TEXT
+    requierments: {
+        type: DataTypes.JSONB, // Хранение массива строк
+        allowNull: false,
+        defaultValue: [] // По умолчанию пустой массив
     },
-    secondname: {
-        type: DataTypes.TEXT
+    conditions: {
+        type: DataTypes.JSONB, // Хранение массива строк
+        allowNull: false,
+        defaultValue: [] // По умолчанию пустой массив
     },
-    lastname: {
-        type: DataTypes.TEXT
+    keyskills: {
+        type: DataTypes.JSONB, // Хранение массива строк
+        allowNull: false,
+        defaultValue: [] // По умолчанию пустой массив
     },
-    developers: {
-        type: DataTypes.TEXT
+    open: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     },
-    email: {
-        type: DataTypes.TEXT
-    },
-    image: {
-        type: DataTypes.TEXT
-    }
+    company: {type: DataTypes.TEXT},
+    email: {type: DataTypes.TEXT},
 })
 
-
 module.exports = {
-    User,Token,Skills,Developers,SkillDeveloper,Documents,News, Sites,AUPs
+    User,Token,Skills,Developers,SkillDeveloper,Documents,News, Sites,AUPs,VakCompanies,Vakansii
 }

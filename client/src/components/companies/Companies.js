@@ -30,42 +30,42 @@ function Companies (){
                 <img src="/files/logos/omedia.svg" alt=""/>
                 <div className={style.active}></div>
             </Link>
-            <div className={style.company}>
+            <Link to='/company?com=hopekids' className={style.company}>
                 <img src="/files/companies/hopekids.svg" alt=""/>
                 <div className={style.active}></div>
-            </div>
-            <div className={style.company}>
+            </Link>
+            <Link to='/company?com=reafarm' className={style.company}>
                 <img src="/files/companies/reafarm.svg" alt=""/>
                 <div className={style.active}></div>
-            </div>
-            <div className={style.company}>
+            </Link>
+            <Link to='/company?com=hopefitness' className={style.company}>
                 <img src="/files/companies/hopefitness.svg" alt=""/>
                 <div className={style.active}></div>
-            </div>
-            <div className={style.company}>
+            </Link>
+            <Link to='/company?com=aviatech' className={style.company}>
                 <img src="/files/companies/aviatech.svg" alt=""/>
                 <div className={style.active}></div>
-            </div>
-            <div className={style.company}>
+            </Link>
+            <Link to='/company?com=surgut24' className={style.company}>
                 <img src="/files/companies/24surgut.svg" alt=""/>
                 <div className={style.active}></div>
-            </div>
-            <div className={style.company}>
+            </Link>
+            <Link to='/company?com=thekitcha' className={style.company}>
                 <img src="/files/companies/thekitcha.svg" alt=""/>
                 <div className={style.active}></div>
-            </div>
-            <div className={style.company}>
+            </Link>
+            <Link to='/company?com=verniydrug' className={style.company}>
                 <img src="/files/companies/verniydrug.svg" alt=""/>
                 <div className={style.active}></div>
-            </div>
-            <div className={style.company}>
+            </Link>
+            <Link to='/company?com=traektiriyanadezhdi' className={style.company}>
                 <img src="/files/companies/traektoriya.svg" alt=""/>
                 <div className={style.active}></div>
-            </div>
-            <div className={style.companyplus} onClick={plusCompany}>
-                <i className="fa-solid fa-plus"/>
-                <div className={style.active}></div>
-            </div>
+            </Link>
+            {/*<div className={style.companyplus} onClick={plusCompany}>*/}
+            {/*    <i className="fa-solid fa-plus"/>*/}
+            {/*    <div className={style.active}></div>*/}
+            {/*</div>*/}
 
         </div>
     )

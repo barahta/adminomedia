@@ -54,9 +54,6 @@ class NewsController {
     async plusVideo(req, res, next) {
         try {
             const video = req.body
-            console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');
-            console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');
-            console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');console.log('|');
             console.log(video)
             const itog = await NewsService.plusVideo(video)
             return res.status(200).json(itog)
@@ -64,6 +61,74 @@ class NewsController {
             next(e)
         }
     }
+    async plusComVak(req, res, next) {
+        try {
+            const com = req.body
+            const itog = await NewsService.plusComVak(com)
+            return res.status(200).json(itog)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async plusComVak(req, res, next) {
+        try {
+            const com = req.body
+            const itog = await NewsService.plusComVak(com)
+            return res.status(200).json(itog)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getComVak(req, res, next) {
+        try {
+            const coms = await NewsService.getComVak()
+            return res.status(200).json(coms)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async delComVak(req, res, next) {
+        try {
+            const com = req.body
+            const itog = await NewsService.delComVak(com)
+            return res.status(200).json(itog)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async createVak(req, res, next) {
+        try {
+            const vak = req.body
+            const itog = await NewsService.createVak(vak)
+            return res.status(200).json(itog)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getVakansii(req, res, next) {
+        try {
+            const vaks = await NewsService.getVakansii()
+            return res.status(200).json(vaks)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async editVak(req, res, next) {
+        try {
+
+            const vak = req.body
+
+            console.log(vak)
+            const itog = await NewsService.editVak(vak)
+            return res.status(200).json(itog)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+
+
+
 
 }
 
