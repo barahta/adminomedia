@@ -140,6 +140,44 @@ const Vakansii = sequelize.define('vakansii',{
     email: {type: DataTypes.TEXT},
 })
 
+const About = sequelize.define('about',{
+    id: {type: DataTypes.INTEGER,primaryKey: true,autoIncrement: true},
+    text: {type: DataTypes.TEXT},
+    company: {type: DataTypes.TEXT}
+})
+
+const GroupsComs = sequelize.define('groupscoms',{
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name: {
+        type: DataTypes.TEXT
+    },
+    number: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    },
+    desc: {
+        type: DataTypes.TEXT
+    },
+    contacts: {
+        type: DataTypes.JSONB, // Хранение массива строк
+        allowNull: false,
+        defaultValue: [] // По умолчанию пустой массив
+    },
+    site: {
+        type: DataTypes.TEXT
+    },
+    logo: {
+        type: DataTypes.TEXT
+    },
+    image: {
+        type: DataTypes.TEXT
+    }
+})
+
 module.exports = {
-    User,Token,Skills,Developers,SkillDeveloper,Documents,News, Sites,AUPs,VakCompanies,Vakansii
+    User,Token,Skills,Developers,SkillDeveloper,Documents,News, Sites,AUPs,VakCompanies,Vakansii,About,GroupsComs
 }

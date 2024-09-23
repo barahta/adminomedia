@@ -133,7 +133,7 @@ const start = async () => {
             console.log('Server started on port:', PORT);
         });
 
-        // await sequelize.sync({ alter: true })
+        await sequelize.sync({ alter: true })
         console.log('Connected to DB');
     } catch (e) {
         console.log(e);

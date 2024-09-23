@@ -14,6 +14,11 @@ function Navigation (){
                 <div className={style.name}>Новости</div>
                 <div className={style.active}></div>
             </Link>
+            <Link to='/group' className={style.point}>
+                <i className="fa-solid fa-layer-group"/>
+                <div className={style.name}>Группа компаний</div>
+                <div className={style.active}></div>
+            </Link>
         </div>
     )
 }

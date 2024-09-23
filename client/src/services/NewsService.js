@@ -39,5 +39,18 @@ export default class NewsService{
         console.log(vak)
         return $api.post('/views/editvak', {vak})
     }
+    static getAbout(com){
+        return $api.post('/views/getabout', {com})
+    }
+    static saveAbout(about){
+        return $api.post('/views/saveabout', {about})
+    }
+    static plusCompany(com){
+        return $api.post('/views/pluscompany', {com})
+    }
+    static getGroupCompanyes(){
+        return $api.get('/views/getgroupcompanyes')
+    }
+
 
 }

@@ -29,12 +29,8 @@ function Menu ({company}) {
                     link: 'about',
                 },
                 {
-                    point: 'Контакты',
-                    link: 'contacts',
-                },
-                {
                     point: 'Все проекты',
-                    link: 'projects',
+                    link: 'group',
                 },
                 {
                     point: 'Ваканскии',

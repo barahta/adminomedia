@@ -13,6 +13,8 @@ import Company from "./pages/Company";
 import AUP from "./pages/AUP";
 import VideoUploader from "./pages/VideoUploader";
 import Vakansii from "./pages/Vakansii";
+import About from "./pages/About";
+import Group from "./pages/Group";
 
 
 function App() {
@@ -44,6 +46,9 @@ function App() {
                     <Route path="/aup" element={<AUP/>}/>
                     <Route path="/promo" element={<VideoUploader/>}/>
                     <Route path="/vakansii" element={<Vakansii/>}/>
+                    <Route path="/vakansii" element={<Vakansii/>}/>
+                    <Route path="/about" element={<About/>}/>
+                    <Route path="/group" element={<Group/>}/>
 
                 </Routes>
                 <ToastContainer/>

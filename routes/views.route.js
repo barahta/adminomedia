@@ -16,7 +16,10 @@ router.post('/delcomvak',authMiddlewere,NewsController.delComVak)
 router.post('/createvak',authMiddlewere,NewsController.createVak)
 router.get('/getvakansii',authMiddlewere,NewsController.getVakansii)
 router.post('/editvak',authMiddlewere,NewsController.editVak)
-
+router.post('/getabout',authMiddlewere,NewsController.getAbout)
+router.post('/saveabout',authMiddlewere,NewsController.saveAbout)
+router.post('/pluscompany',authMiddlewere,NewsController.plusCompany)
+router.get('/getgroupcompanyes',authMiddlewere,NewsController.getGroupCompanyes)
 
 
 

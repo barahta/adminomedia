@@ -125,10 +125,43 @@ class NewsController {
             next(e)
         }
     }
-
-
-
-
+    async getAbout(req, res, next) {
+        try {
+            const com = req.body
+            const itog = await NewsService.getAbout(com)
+            console.log('контроллер')
+            console.log(itog)
+            return res.status(200).json(itog)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async saveAbout(req, res, next) {
+        try {
+            const about = req.body
+            const itog = await NewsService.saveAbout(about)
+            return res.status(200).json(itog)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async plusCompany(req, res, next) {
+        try {
+            const com = req.body
+            const itog = await NewsService.plusCompany(com)
+            return res.status(200).json(itog)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getGroupCompanyes(req, res, next) {
+        try {
+            const coms = await NewsService.getGroupCompanyes()
+            return res.status(200).json(coms)
+        } catch (e) {
+            next(e)
+        }
+    }
 
 }
 

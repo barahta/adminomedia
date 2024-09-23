@@ -1,6 +1,6 @@
 
 const config = require('config')
-const {News, Developers, AUPs, VakCompanies, Vakansii} = require('../models/models')
+const {News, Developers, AUPs, VakCompanies, Vakansii, About, GroupsComs} = require('../models/models')
 const ApiError = require("../exceptions/api.error");
 const {Sequelize} = require('sequelize')
 class NewsService {
@@ -119,7 +119,6 @@ class NewsService {
         }catch(e){
             console.log(e)
         }
-
     }
     async editVak(vak){
         console.log(vak)
@@ -147,6 +146,58 @@ class NewsService {
         }
 
     }
+
+    async getAbout(com){
+
+        try{
+            const search = await About.findOne({where: {company: com.com.company}})
+            console.log(search)
+            if(search){
+                return search
+            }else{
+                const itog = await About.create({text: '', company:com.com.company})
+                return itog
+            }
+        }catch(e){
+
+        }
+    }
+    async saveAbout(about){
+        console.log(about)
+        try{
+            const search = await About.findOne({where: {company: about.about.company}})
+            search.text = about.about.text
+            await search.save()
+            return search
+        }catch(e){
+
+        }
+    }
+    async plusCompany(com){
+        console.log(com)
+        const name = com.com.name
+        const desc = com.com.desc
+        const contacts = com.com.contacts
+        const site = com.com.site
+        const logo = com.com.logo
+        const image = com.com.image
+        const number = com.com.number
+        try{
+            const itog = await GroupsComs.create({name,desc,contacts,site,logo,image,number})
+            return itog
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async getGroupCompanyes(){
+        try{
+            const coms = await GroupsComs.findAll()
+            return coms
+        }catch(e){
+            console.log(e)
+        }
+    }
+
 
 }
 module.exports = new NewsService()
