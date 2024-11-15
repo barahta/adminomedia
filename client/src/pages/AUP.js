@@ -5,17 +5,11 @@ import {useEffect, useState} from "react";
 import {Link, useLocation} from 'react-router-dom';
 import BigModal from "../components/modalwin/BigModal";
 import CreatePost from "../components/news/CreatePost";
-import * as PropTypes from "prop-types";
 import PlusAUP from "../components/forms/PlusAUP";
+import UpdateAUP from "../components/forms/UpdateAUP";
 import NewsService from "../services/NewsService";
 import DeleteMan from "../components/forms/DeleteMan";
 
-
-
-PlusAUP.propTypes = {
-    setActivemodal: PropTypes.func,
-    man: PropTypes.string
-};
 
 function AUP () {
     const location = useLocation();
@@ -29,12 +23,14 @@ function AUP () {
     const [thisPost, setThisPost] = useState({})
     const [people, setPeople] = useState([])
     const [activedel, setActivedel] = useState(false)
+    const [activeUpdate, setActiveUpdate] = useState(false)
     const [mandel, setMandel] = useState({})
 
     const getMans = async()=>{
         try{
             const {data} = await NewsService.getAUP()
             setPeople(data)
+            console.log(data)
         }catch(e){
             console.log(e)
         }
@@ -42,10 +38,11 @@ function AUP () {
 
     useEffect(()=>{
         getMans()
-    },[plusman,activedel])
+    },[plusman,activedel,activeUpdate])
     return (
         <div className={style.bodymain}>
             <BigModal data={<PlusAUP man={data} setActivemodal={setPlusman}/>} activemodal={plusman} setActivemodal={setPlusman} setData={setData}/>
+            <BigModal data={<UpdateAUP man={data} setActivemodal={setActiveUpdate}/>} activemodal={activeUpdate} setActivemodal={setActiveUpdate} setData={setData}/>
             <BigModal data={<DeleteMan man={mandel} setActivemodal={setActivedel} setMandel={setMandel}/>} activemodal={activedel} setActivemodal={setActivedel} setData={setData}/>
             <HeaderMain page={`./${company}`}/>
             <div className={style.main}>
@@ -79,7 +76,7 @@ function AUP () {
                                         <div className={style.name}>{man.lastname}</div>
                                     </div>
                                     <div className={style.dev}>{man.developers}</div>
-                                    <div className={style.btncontact} onClick={() => {setActivemodal(true);setData(man)}}>Написать</div>
+                                    <div className={style.btncontact} onClick={() => {setActiveUpdate(true);setData(man)}}>Редактировать</div>
                                     <div className={style.btncontact} onClick={() => {setActivedel(true); setMandel(man)}}>Удалить</div>
                                 </div>
                             ))}

@@ -58,6 +58,7 @@ class FilesController {
     }
     async uploadFile(req, res, next) {
         try {
+            console.log('hui')
             //slave 5 mb
             const file = req.files.file
             const filename = req.body.filename

@@ -35,6 +35,10 @@ function Menu ({company}) {
                 {
                     point: 'Ваканскии',
                     link: 'vakansii',
+                },
+                {
+                    point: 'Контакты',
+                    link: 'contacts',
                 }
             ]
         },
@@ -55,6 +59,63 @@ function Menu ({company}) {
                 },
                 {
                     point: 'Контакты',
+                    link: 'contacts',
+                },
+                {
+                    point: 'О нас',
+                    link: 'about',
+                }
+            ]
+        },
+        {
+            com: 'hopefitness',
+            menu: [
+                {
+                    point: 'Промо ролик',
+                    link: 'promo',
+                },
+                {
+                    point: 'Пакеты',
+                    link: 'packs',
+                },
+                {
+                    point: 'Галерея',
+                    link: 'projects',
+                },
+                {
+                    point: 'Контакты',
+                    link: 'contacts',
+                },
+                {
+                    point: 'Зоны клуба',
+                    link: 'zones',
+                },
+                {
+                    point: 'Слайдер Зон',
+                    link: 'contacts',
+                },
+                {
+                    point: 'Мобильное приложение',
+                    link: 'contacts',
+                },
+                {
+                    point: 'Преимущества',
+                    link: 'contacts',
+                },
+                {
+                    point: 'Тренеры страница',
+                    link: 'contacts',
+                },
+                {
+                    point: 'Тренеры слайдер',
+                    link: 'contacts',
+                },
+                {
+                    point: 'Программы страница',
+                    link: 'contacts',
+                },
+                {
+                    point: 'Программы слайдер',
                     link: 'contacts',
                 },
                 {

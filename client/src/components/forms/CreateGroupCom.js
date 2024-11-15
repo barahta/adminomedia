@@ -71,6 +71,7 @@ function CreateGroupCom({setActivemodal}) {
     const [numposition, setNumposition] = useState(0)
 
     const createGroupCom = async () => {
+        console.log('start')
         try{
             const name = namepost
             const desc = descpost
@@ -97,7 +98,9 @@ function CreateGroupCom({setActivemodal}) {
             console.log(e)
         }
     }
-
+    useEffect(()=>{
+        console.log(imgpage)
+    }, [imgpage])
     const handleFileUpload = (event) => {
         const formData = new FormData();
         formData.append('image', event.target.files[0]);

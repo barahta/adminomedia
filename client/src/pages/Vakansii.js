@@ -51,6 +51,18 @@ function Vakansii () {
         }
     }
 
+    const delThisVak = async (id) => {
+        try{
+            const {data} = await NewsService.delTisVak({id})
+            if(data){
+                message('Вакансия удалена')
+                getVakansii()
+            }
+        }catch(e){
+
+        }
+    }
+
     const plusCom = async () => {
         if(newcom.length>2){
             try{
@@ -122,6 +134,7 @@ function Vakansii () {
                                     <div className={style.vaktitle}>
                                         <div className={style.vakname}>{vak.name}</div>
                                         <div className={style.active}>
+                                            <div className={style.open}><i className="fa-solid fa-trash" onClick={()=>delThisVak(vak.id)}></i></div>
                                             <div className={style.open}><i className="fa-regular fa-eye" onClick={()=>editVak(vak)}></i></div>
                                             <div className={(vak.open)?style.btnoff:style.btnon}>
                                                 <div className={style.sphere}></div>

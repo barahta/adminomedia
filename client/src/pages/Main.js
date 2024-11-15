@@ -18,8 +18,6 @@ function Main () {
                 </div>
                 <div className={style.rightpath}></div>
             </div>
-
-
         </div>
     )
 }

@@ -60,6 +60,23 @@ function PlusAUP ({man, setActivemodal}) {
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
+                    if(data && imgpage.length>0){
+                        try {
+                            // Удаляем старое изображение
+                            const deleteResponse = fetch(`${process.env.REACT_APP_API_BASE_URL}/api/delete`, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({ filePath: imgpage }), // Передаем текущую ссылку на изображение
+                            });
+
+                            const deleteResult = deleteResponse.json();
+                            console.log('Удаление завершено:', deleteResult);
+                        } catch (deleteError) {
+                            console.error('Ошибка при удалении изображения:', deleteError);
+                        }
+                    }
                     setImgpage(data.filePath);
                 })
                 .catch((error) => console.error('Error uploading image:', error));

@@ -57,23 +57,11 @@ function CreatePost({setActivemodal}) {
             active: false
         },
         {
-            name: 'ТРАЕКТОРИЯ НАДЕЖДЫ',
-            active: false
-        },
-        {
-            name: 'СУРГУТ 24',
-            active: false
-        },
-        {
             name: 'ВЕРНЫЙ ДРУГ',
             active: false
         },
         {
-            name: 'THE KITCHA',
-            active: false
-        },
-        {
-            name: 'OMEDIA!',
+            name: 'АВИАТЕХ',
             active: false
         }
     ]

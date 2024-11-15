@@ -13,6 +13,9 @@ export default class NewsService{
     static plusAUP(post){
         return $api.post('/views/plusaup', {post})
     }
+    static updateManAUP(man){
+        return $api.post('/views/updatemanaup', {man})
+    }
     static delMan(man){
         return $api.post('/views/delman', {man})
     }
@@ -39,6 +42,13 @@ export default class NewsService{
         console.log(vak)
         return $api.post('/views/editvak', {vak})
     }
+    static delTisVak(vak){
+
+        console.log(vak)
+        return $api.post('/views/deltisvak', vak)
+    }
+
+
     static getAbout(com){
         return $api.post('/views/getabout', {com})
     }
@@ -50,6 +60,60 @@ export default class NewsService{
     }
     static getGroupCompanyes(){
         return $api.get('/views/getgroupcompanyes')
+    }
+    static delComGroup(com){
+        return $api.post('/views/delcomgroup', {com})
+    }
+    static editСomGroup(com){
+        return $api.post('/views/editcomgroup', {com})
+    }
+    static updatePosComGroup(com){
+        return $api.post('/views/updateposcomgroup', {com})
+    }
+    static getPlaces(act){
+        return $api.post('/views/getplaces', {act})
+    }
+    static plusPlaces(place){
+        return $api.post('/views/plusplaces', {place})
+    }
+    static delPlace(id){
+        return $api.post('/views/delplace', id)
+    }
+    static createPack(pack){
+        return $api.post('/views/createpack', pack)
+    }
+    static getAllPacks(capter){
+        return $api.post('/views/getallpacks', capter)
+    }
+    static editPrioryPack(priory){
+        return $api.post('/views/editpriorypack', priory)
+    }
+    static updatePack(pack){
+        return $api.post('/views/updatepack', pack)
+    }
+    static createImgGallery(pack){
+        return $api.post('/views/createimggallery', pack)
+    }
+    static getGalleryImgs(capter){
+        return $api.post('/views/getgalleryimgs', capter)
+    }
+    static getCities(capter){
+        return $api.post('/views/getcities', capter)
+    }
+    static createCity(contact){
+        return $api.post('/views/createcity', contact)
+    }
+    static uploadStaticContact(contact){
+        return $api.post('/views/uploadstaticcontact', contact)
+    }
+    static plusContactParam(contact){
+        return $api.post('/views/pluscontactparam', contact)
+    }
+    static createZone(zone){
+        return $api.post('/views/createzone', zone)
+    }
+    static getZones(capter){
+        return $api.post('/views/getzones', capter)
     }
 
 

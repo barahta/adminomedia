@@ -15,6 +15,11 @@ import VideoUploader from "./pages/VideoUploader";
 import Vakansii from "./pages/Vakansii";
 import About from "./pages/About";
 import Group from "./pages/Group";
+import Activities from "./pages/Activities";
+import Packets from "./pages/Packets";
+import Gallery from "./pages/Gallery";
+import Contacts from "./pages/Contacts";
+import Zones from "./pages/Zones";
 
 
 function App() {
@@ -44,11 +49,15 @@ function App() {
                     <Route path="/news" element={<News/>}/>
                     <Route path="/company" element={<Company/>}/>
                     <Route path="/aup" element={<AUP/>}/>
+                    <Route path="/activities" element={<Activities/>}/>
                     <Route path="/promo" element={<VideoUploader/>}/>
-                    <Route path="/vakansii" element={<Vakansii/>}/>
+                    <Route path="/packs" element={<Packets/>}/>
+                    <Route path="/projects" element={<Gallery/>}/>
+                    <Route path="/contacts" element={<Contacts/>}/>
                     <Route path="/vakansii" element={<Vakansii/>}/>
                     <Route path="/about" element={<About/>}/>
                     <Route path="/group" element={<Group/>}/>
+                    <Route path="/zones" element={<Zones/>}/>
 
                 </Routes>
                 <ToastContainer/>

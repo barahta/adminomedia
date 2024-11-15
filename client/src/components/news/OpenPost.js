@@ -57,23 +57,11 @@ function OpenPost({thisPost,setActivemodal}) {
             active: false
         },
         {
-            name: 'ТРАЕКТОРИЯ НАДЕЖДЫ',
-            active: false
-        },
-        {
-            name: 'СУРГУТ 24',
-            active: false
-        },
-        {
             name: 'ВЕРНЫЙ ДРУГ',
             active: false
         },
         {
-            name: 'THE KITCHA',
-            active: false
-        },
-        {
-            name: 'OMEDIA!',
+            name: 'АВИАТЕХ',
             active: false
         }
     ]
@@ -167,8 +155,13 @@ function OpenPost({thisPost,setActivemodal}) {
     }
 
     useEffect(()=>{
-        setViewcom(thisPost.public)
-    }, [])
+        setViewcom()
+        setNamepost(thisPost.title)
+        setDescpost(thisPost.desc)
+        setView(thisPost.text)
+        setImgpage(thisPost.image)
+        setPubliccom(thisPost.public)
+    }, [thisPost])
     return (
         <DndProvider backend={HTML5Backend}>
             <div className={style.main}>
@@ -176,7 +169,7 @@ function OpenPost({thisPost,setActivemodal}) {
                     <div
                         className={style.photo}
                         onClick={handleClick}
-                        style={(imgpage.length>0)?{backgroundImage: `url('${imgpage}')`}:{backgroundImage: `url('/files/news/nophoto.svg')`}}>
+                        style={(imgpage && imgpage.length>0)?{backgroundImage: `url('${imgpage}')`}:{backgroundImage: `url('/files/news/nophoto.svg')`}}>
                         <div className={style.active}><i className="fa-solid fa-plus"/></div>
                     </div>
                     <input
@@ -197,7 +190,7 @@ function OpenPost({thisPost,setActivemodal}) {
                     <textarea className={style.desc}  onChange={(e)=>setTextpost(e.target.value)} value={textpost}></textarea>
                     <div className={style.btnplus} onClick={updateText}>Добавить </div>
                     <div className={style.listp}>
-                        {view.map((strock, index) => (
+                        {(view)&&view.map((strock, index) => (
                             <DraggableStrock
                                 key={index}
                                 index={index}
@@ -206,14 +199,14 @@ function OpenPost({thisPost,setActivemodal}) {
                                 deleteStrock={deleteStrock}
                             />
                         ))}
-                    </div>
+                    </div>/
                 </div>
 
                 <div className={style.right}>
                     <div className={style.up}>
                         <div className={style.title}>Где опубликовано:</div>
                         <div className={style.listcom}>
-                            {(viewcom)&&viewcom.map((com, indexcom)=>(
+                            {(publiccom)&&publiccom.map((com, indexcom)=>(
                                 <div className={style.com} key={indexcom}>
                                     <div className={style.name} style={(com.active)? {color: '#410099'}:{}}>{com.name}</div>
                                     <div className={(com.active)?style.btnon:style.btnoff} onClick={()=>onoffActive(indexcom)}>

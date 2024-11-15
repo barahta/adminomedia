@@ -83,9 +83,25 @@ const storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + uniqueSuffix + extension); // Генерируем уникальное имя файла с расширением
     }
 });
+// Настраиваем хранилище для загрузки изображений
+const gallerybox = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, 'client', 'public', 'gallery', 'company')); // Папка для сохранения
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const extension = path.extname(file.originalname); // Получаем расширение файла
+        cb(null, file.fieldname + '-' + uniqueSuffix + extension); // Генерируем уникальное имя файла с расширением
+    }
+});
 
 const upload = multer({
     storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 } // Ограничение размера файла (5 MB)
+});
+
+const gallery = multer({
+    storage: gallerybox,
     limits: { fileSize: 5 * 1024 * 1024 } // Ограничение размера файла (5 MB)
 });
 
@@ -102,6 +118,7 @@ app.use(express.static(path.join(__dirname, 'client', 'public')));
 
 // Маршрут для загрузки изображений
 app.post('/api/upload', upload.single('image'), (req, res) => {
+
     if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
     }
@@ -110,6 +127,34 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
     res.json({ filePath });
 });
 
+// Маршрут для загрузки изображений в галерею
+app.post('/api/gallery', gallery.single('image'), (req, res) => {
+
+    if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    const filePath = `/gallery/company/${req.file.filename}`; // Возвращаем полный путь к файлу с расширением
+    res.json({ filePath });
+});
+app.delete('/api/delete', (req, res) => {
+    const { filePath } = req.body;
+
+    if (!filePath) {
+        return res.status(400).json({ message: 'File path is required' });
+    }
+
+    const fullPath = path.join(__dirname, 'client', 'public', filePath);
+
+    fs.unlink(fullPath, (err) => {
+        if (err) {
+            console.error('Ошибка при удалении файла:', err);
+            return res.status(500).json({ message: 'Ошибка при удалении файла' });
+        }
+
+        res.json({ message: 'Файл успешно удален' });
+    });
+});
 // Пример работы с WebSockets
 io.on('connection', (socket) => {
     console.log('A user connected');
@@ -124,16 +169,24 @@ io.on('connection', (socket) => {
     });
 });
 
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
+
 // Обработка ошибок
 app.use(errorMiddlewere); // Обязательно последний!
 
+
+
 const start = async () => {
     try {
-        server.listen(PORT, () => { // Используем server.listen вместо app.listen
+        server.listen(PORT, '0.0.0.0', () => { // Используем server.listen вместо app.listen
             console.log('Server started on port:', PORT);
         });
 
-        await sequelize.sync({ alter: true })
+        // await sequelize.sync({ alter: true })
         console.log('Connected to DB');
     } catch (e) {
         console.log(e);
