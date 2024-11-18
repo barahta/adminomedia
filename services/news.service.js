@@ -480,5 +480,39 @@ class NewsService {
             console.log(e)
         }
     }
+    async updateZone(zone){
+        const id = zone.id
+        const name = zone.name
+        const desc = zone.desc
+        const capter = zone.capter
+        const priory = zone.priory
+        const mainimg = zone.mainimg
+        const maindesc = zone.maindesc
+        const firstimg = zone.firstimg
+        const firstdesc = zone.firstdesc
+        const secondimg = zone.secondimg
+        const seconddesc = zone.seconddesc
+        const lastimg = zone.lastimg
+        try{
+            const search = await ZonesPage.findOne({where: {id: id}})
+            if(search){
+                search.name = name
+                search.desc = desc
+                search.capter = capter
+                search.priory = priory
+                search.mainimg = mainimg
+                search.maindesc = maindesc
+                search.firstimg = firstimg
+                search.firstdesc = firstdesc
+                search.secondimg = secondimg
+                search.seconddesc = seconddesc
+                search.lastimg = lastimg
+                await search.save()
+                return search
+            }
+        }catch(e){
+            console.log(e)
+        }
+    }
 }
 module.exports = new NewsService()

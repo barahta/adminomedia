@@ -115,6 +115,9 @@ export default class NewsService{
     static getZones(capter){
         return $api.post('/views/getzones', capter)
     }
+    static updateZone(zone){
+        return $api.post('/views/updatezone', zone)
+    }
 
 
 }

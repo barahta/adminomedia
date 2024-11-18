@@ -40,6 +40,6 @@ router.post('/uploadstaticcontact',authMiddlewere,NewsController.uploadStaticCon
 router.post('/pluscontactparam',authMiddlewere,NewsController.plusContactParam)
 router.post('/createzone',authMiddlewere,NewsController.createZone)
 router.post('/getzones',authMiddlewere,NewsController.getZones)
-
+router.post('/updatezone',authMiddlewere,NewsController.updateZone)
 
 module.exports = router

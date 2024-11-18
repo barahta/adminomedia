@@ -347,6 +347,15 @@ class NewsController {
             next(e)
         }
     }
+    async updateZone(req, res, next) {
+        try {
+            const zone = req.body
+            const itogy = await NewsService.updateZone(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
 
 }
 
