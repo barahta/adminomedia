@@ -92,7 +92,8 @@ class NewsController {
     }
     async getComVak(req, res, next) {
         try {
-            const coms = await NewsService.getComVak()
+            const com = req.body
+            const coms = await NewsService.getComVak(com)
             return res.status(200).json(coms)
         } catch (e) {
             next(e)
@@ -351,6 +352,339 @@ class NewsController {
         try {
             const zone = req.body
             const itogy = await NewsService.updateZone(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async plusZoneSlider(req, res, next) {
+        try {
+            const zone = req.body
+            const itogy = await NewsService.plusZoneSlider(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getZonesSlides(req, res, next) {
+        try {
+            const zone = req.body
+            const itogy = await NewsService.getZonesSlides(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async editPrioryZoneSlider(req, res, next) {
+        try {
+            const zone = req.body
+            const itogy = await NewsService.editprioryzoneslider(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async delZoneSlider(req, res, next) {
+        try {
+            const zone = req.body
+            const itogy = await NewsService.delZoneSlider(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getProgramsSlides(req, res, next) {
+        try {
+            const zone = req.body
+            const itogy = await NewsService.getProgramsSlides(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async plusProgramSlider(req, res, next) {
+        try {
+            const zone = req.body
+            const itogy = await NewsService.plusProgramSlider(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async delProgramSlider(req, res, next) {
+        try {
+            const zone = req.body
+            const itogy = await NewsService.delProgramSlider(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getProgramsPage(req, res, next) {
+        try {
+            const zone = req.body
+            const itogy = await NewsService.getProgramsPage(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async plusProgramPage(req, res, next) {
+        try {
+            const zone = req.body
+            const itogy = await NewsService.plusProgramPage(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async delProgramPage(req, res, next) {
+        try {
+            const zone = req.body
+            const itogy = await NewsService.delProgramPage(zone)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async plusTrenersGroup(req, res, next) {
+        try {
+            const group = req.body
+            const itogy = await NewsService.plusTrenersGroup(group)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getTrenersGroup(req, res, next) {
+        try {
+            const group = req.body
+            const itogy = await NewsService.getTrenersGroup(group)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async delTrenersGroup(req, res, next) {
+        try {
+            const group = req.body
+            const itogy = await NewsService.delTrenersGroup(group)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async plusTrenerMan(req, res, next) {
+        try {
+            const group = req.body
+            const itogy = await NewsService.plusTrenerMan(group)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getTrenersMan(req, res, next) {
+        try {
+            const group = req.body
+            const itogy = await NewsService.getTrenersMan(group)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async delTrenerMan(req, res, next) {
+        try {
+            const group = req.body
+            const itogy = await NewsService.delTrenerMan(group)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async delPacks(req, res, next) {
+        try {
+            const group = req.body
+            const itogy = await NewsService.delPacks(group)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getMobileURLs(req, res, next) {
+        try {
+            const group = req.body
+            const itogy = await NewsService.getMobileURLs(group)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async updateURLMobileAPP(req, res, next) {
+        try {
+            const group = req.body
+            const itogy = await NewsService.updateURLMobileAPP(group)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getAllPticesAvia(req, res, next) {
+        try {
+            const capter = req.body
+            const itogy = await NewsService.getAllPticesAvia(capter)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getProgramsAvia(req, res, next) {
+        try {
+            const capter = req.body
+            const itogy = await NewsService.getProgramsAvia(capter)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async createPriceAvia(req, res, next) {
+        try {
+            const program = req.body
+            const itogy = await NewsService.createPriceAvia(program)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async editPriceAvia(req, res, next) {
+        try {
+            const program = req.body
+            const itogy = await NewsService.editPriceAvia(program)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async delPrice(req, res, next) {
+        try {
+            const program = req.body
+            const itogy = await NewsService.delPrice(program)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async delNewsPost(req, res, next) {
+        try {
+            const news = req.body
+            const itogy = await NewsService.delNewsPost(news)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async updatePost(req, res, next) {
+        try {
+            const news = req.body
+            const itogy = await NewsService.updatePost(news)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async reversePrioryAUP(req, res, next) {
+        try {
+            const aup = req.body
+            const itogy = await NewsService.reversePrioryAUP(aup)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async editPrioryPrice(req, res, next) {
+        try {
+            const priory = req.body
+            const itogy = await NewsService.editPrioryPrice(priory)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async createTeacherAvia(req, res, next) {
+        try {
+            const teacher = req.body
+            const itogy = await NewsService.createTeacherAvia(teacher)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getTeachersAvia(req, res, next) {
+        try {
+            const capter = req.body
+            const itogy = await NewsService.getTeachersAvia(capter)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async prioryTeachersAvia(req, res, next) {
+        try {
+            const teacher = req.body
+            const itogy = await NewsService.prioryTeachersAvia(teacher)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async editTeacherAvia(req, res, next) {
+        try {
+            const teacher = req.body
+            const itogy = await NewsService.editTeacherAvia(teacher)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async delTeacherAvia(req, res, next) {
+        try {
+            const teacher = req.body
+            const itogy = await NewsService.delTeacherAvia(teacher)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async getLearnTeory(req, res, next) {
+        try {
+            const capter = req.body
+            const itogy = await NewsService.getLearnTeory(capter)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async editTheoryDesc(req, res, next) {
+        try {
+            const desc = req.body
+            const itogy = await NewsService.editTheoryDesc(desc)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async createListLeart(req, res, next) {
+        try {
+            const learn = req.body
+            const itogy = await NewsService.createListLeart(learn)
+            return res.status(200).json(itogy)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async createListTheory(req, res, next) {
+        try {
+            const learn = req.body
+            const itogy = await NewsService.createListTheory(learn)
             return res.status(200).json(itogy)
         } catch (e) {
             next(e)

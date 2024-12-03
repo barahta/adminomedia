@@ -155,6 +155,24 @@ app.delete('/api/delete', (req, res) => {
         res.json({ message: 'Файл успешно удален' });
     });
 });
+app.delete('/api/deleteCrop', (req, res) => {
+    const { filePath } = req.body;
+
+    if (!filePath) {
+        return res.status(400).json({ message: 'File path is required' });
+    }
+
+    const fullPath = path.join(__dirname, 'client', 'public', 'images', 'company', filePath);
+
+    fs.unlink(fullPath, (err) => {
+        if (err) {
+            console.error('Ошибка при удалении файла:', err);
+            return res.status(500).json({ message: 'Ошибка при удалении файла' });
+        }
+
+        res.json({ message: 'Файл успешно удален' });
+    });
+});
 // Пример работы с WebSockets
 io.on('connection', (socket) => {
     console.log('A user connected');

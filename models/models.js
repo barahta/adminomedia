@@ -85,7 +85,20 @@ const News = sequelize.define('news',{
     },
     image: {
         type: DataTypes.TEXT
-    }
+    },
+    imagefull: {
+        type: DataTypes.TEXT
+    },
+    newsDateTime: {
+    // Новое поле для даты и времени новости
+        type: DataTypes.DATE,
+        allowNull: true,
+    },
+    publishDateTime: {
+        // Новое поле для даты и времени публикации
+        type: DataTypes.DATE,
+        allowNull: true,
+    },
 })
 
 const Sites = sequelize.define('sites',{
@@ -102,7 +115,11 @@ const AUPs = sequelize.define('aup',{
     lastname: {type: DataTypes.TEXT},
     developers: {type: DataTypes.TEXT},
     email: {type: DataTypes.TEXT},
-    image: {type: DataTypes.TEXT}
+    image: {type: DataTypes.TEXT},
+    priory: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    }
 })
 const VakCompanies = sequelize.define('vakcompanies',{
     id: {type: DataTypes.INTEGER,primaryKey: true,autoIncrement: true},
@@ -216,6 +233,9 @@ const PacksKids = sequelize.define('packskids',{
     time: {
         type: DataTypes.TEXT
     },
+    publicdesc: {
+        type: DataTypes.TEXT
+    },
     desc: {
         type: DataTypes.JSONB, // Хранение массива строк
         allowNull: false,
@@ -223,6 +243,10 @@ const PacksKids = sequelize.define('packskids',{
     },
     price: {
         type: DataTypes.TEXT
+    },
+    priory: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     },
     priory: {
         type: DataTypes.INTEGER,
@@ -355,6 +379,7 @@ const Advantages = sequelize.define('advantages',{
 const OurTrainers = sequelize.define('ourtrainers',{
     id: {type: DataTypes.INTEGER,primaryKey: true,autoIncrement: true},
     name: {type: DataTypes.TEXT},
+    stazh: {type: DataTypes.TEXT},
     desc: {type: DataTypes.TEXT},
     room: {type: DataTypes.TEXT},
     group: {type: DataTypes.TEXT},
@@ -372,6 +397,7 @@ const GroupTrainers = sequelize.define('grouptrainers',{
 const ProgramTrain = sequelize.define('programtrain',{
     id: {type: DataTypes.INTEGER,primaryKey: true,autoIncrement: true},
     name: {type: DataTypes.TEXT},
+    desc: {type: DataTypes.TEXT},
     room: {type: DataTypes.TEXT},
     image: {type: DataTypes.TEXT},
     capter: {type: DataTypes.TEXT},
@@ -384,14 +410,95 @@ const ProgramSlider = sequelize.define('programslider',{
     capter: {type: DataTypes.TEXT},
 })
 
+
+const PricesAvia = sequelize.define('pricesavia',{
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    capter: {
+        type: DataTypes.TEXT
+    },
+    name: {
+        type: DataTypes.TEXT
+    },
+    description: {
+        type: DataTypes.TEXT
+    },
+    priceour: {
+        type: DataTypes.JSONB,
+        allowNull: false,
+        defaultValue: []
+    },
+    priceyour: {
+        type: DataTypes.JSONB,
+        allowNull: false,
+        defaultValue: []
+    },
+    time: {
+        type: DataTypes.TEXT
+    },
+    theory: {
+        type: DataTypes.TEXT
+    },
+    practice: {
+        type: DataTypes.TEXT
+    },
+    programs: {
+        type: DataTypes.JSONB,
+        allowNull: false,
+        defaultValue: []
+    },
+    discounts: {
+        type: DataTypes.JSONB,
+        allowNull: false,
+        defaultValue: []
+    },
+    priory: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    }
+})
+
+const ProgramLessons = sequelize.define('programslessons',{
+    id: {type: DataTypes.INTEGER,primaryKey: true,autoIncrement: true},
+    name: {type: DataTypes.TEXT},
+    desc: {type: DataTypes.TEXT},
+    capter: {type: DataTypes.TEXT},
+})
+const TeachersAvia = sequelize.define('teachersavia',{
+    id: {type: DataTypes.INTEGER,primaryKey: true,autoIncrement: true},
+    name: {type: DataTypes.TEXT},
+    capter: {type: DataTypes.TEXT},
+    dev: {type: DataTypes.TEXT},
+    desc: {
+        type: DataTypes.JSONB,
+        allowNull: false,
+        defaultValue: []
+    },
+    photo: {type: DataTypes.TEXT},
+    priory: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    }
+})
+const LearnTheory = sequelize.define('learntheory',{
+    id: {type: DataTypes.INTEGER,primaryKey: true,autoIncrement: true},
+    capter: {type: DataTypes.TEXT},
+    learn: {
+        type: DataTypes.JSONB,
+        allowNull: false,
+        defaultValue: []
+    },
+    theory: {
+        type: DataTypes.JSONB,
+        allowNull: false,
+        defaultValue: []
+    }
+})
+
 module.exports = {
     User,Token,Skills,Developers,SkillDeveloper,Documents,News, Sites,AUPs,VakCompanies,Vakansii,About,GroupsComs,Activities,PacksKids,GalleryImages,ContactsPage,
-    ZonesPage,
-    ZonesSlider,
-    MobileApp,
-    Advantages,
-    OurTrainers,
-    ProgramTrain,
-    ProgramSlider,
-    GroupTrainers
+    ZonesPage,ZonesSlider,MobileApp,Advantages,OurTrainers,ProgramTrain,ProgramSlider,GroupTrainers,PricesAvia,ProgramLessons,TeachersAvia,LearnTheory
 }

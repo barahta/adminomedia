@@ -3,7 +3,7 @@ import HeaderMain from "../components/header/HeaderMain";
 import Navigation from "../components/nav/Nav";
 import NewsPost from "../components/news/NewsPost";
 import {useEffect, useState} from "react";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useMessage} from "../hooks/message.hook";
 import NewsService from "../services/NewsService";
 import OpenPost from "../components/news/OpenPost";
@@ -23,7 +23,7 @@ function Vakansii () {
 
     const getComVak = async () => {
         try {
-            const {data} = await NewsService.getComVak()
+            const {data} = await NewsService.getComVak({com: company})
             setListcom(data)
         }catch(e){
             console.log(e)
@@ -109,14 +109,21 @@ function Vakansii () {
                 <div className={style.leftpath}>
                     <Navigation />
                 </div>
+
                 <div className={style.vakansii}>
+                    <div className={style.centerpath} style={{overflow: 'hidden'}}>
+                        <Link to={`/company?com=${company}`} className={style.pluspost} style={{color: '#454545', marginRight: '20px'}}>
+                            <i className="fa-solid fa-rotate-left"/>
+                            <div className={style.namebtn}>Назад</div>
+                        </Link>
+                    </div>
                     <div className={style.title}>Вакансии</div>
                     <div className={style.companies}>
                         <input type='text' value={newcom} onChange={(e)=>setNewcom(e.target.value)} className={style.inputcom}/>
                         <div className={style.pluscombtn} onClick={plusCom}>Добавить</div>
                         <div className={style.listcom}>
                             {listcom.map((com, index)=>(
-                                <div className={style.activecom}>
+                                <div className={style.activecom} key={index}>
                                     <div className={style.namecom}>{com.name}</div>
                                     <i className="fa-solid fa-trash" onClick={()=>delComVak(com)}/>
                                 </div>

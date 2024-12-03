@@ -11,9 +11,10 @@ export default function AuthPage(){
     const {store} = useContext(Context)
     const message = useMessage()
 
+
     // const firstReg = async () => {
     //     try{
-    //         const {data} = await AuthService.registration({login: 'barahtasurgut',password: 'Barah396525',tn: '410099',name: 'Куб Владимир Тенович',email: 'barahtasurgut@gmail.com'})
+    //         const {data} = await AuthService.registration({login: 'mikhaylov',password: 'Danya2024',tn: '41002340',name: 'Михайлов Данил',email: ''})
     //         console.log('Регистрация успешна')
     //     }catch{
     //         console.log('не зарегистрировал')

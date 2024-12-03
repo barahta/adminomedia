@@ -92,31 +92,27 @@ function Menu ({company}) {
                 },
                 {
                     point: 'Слайдер Зон',
-                    link: 'contacts',
+                    link: 'zonesslider',
                 },
                 {
                     point: 'Мобильное приложение',
-                    link: 'contacts',
+                    link: 'mobileapp',
                 },
                 {
                     point: 'Преимущества',
                     link: 'contacts',
                 },
                 {
-                    point: 'Тренеры страница',
-                    link: 'contacts',
-                },
-                {
-                    point: 'Тренеры слайдер',
-                    link: 'contacts',
+                    point: 'Тренеры',
+                    link: 'trenersslider',
                 },
                 {
                     point: 'Программы страница',
-                    link: 'contacts',
+                    link: 'programspage',
                 },
                 {
                     point: 'Программы слайдер',
-                    link: 'contacts',
+                    link: 'programslider',
                 },
                 {
                     point: 'О нас',
@@ -133,7 +129,36 @@ function Menu ({company}) {
                 },
                 {
                     point: 'Товары',
-                    link: 'packs',
+                    link: 'packsrea',
+                },
+                {
+                    point: 'Контакты',
+                    link: 'contacts',
+                },
+                {
+                    point: 'О нас',
+                    link: 'about',
+                }
+            ]
+        },
+        {
+            com: 'aviatech',
+            menu: [
+                {
+                    point: 'Промо ролик',
+                    link: 'promo',
+                },
+                {
+                    point: 'Курсы',
+                    link: 'prices',
+                },
+                {
+                    point: 'Пилоты',
+                    link: 'allpilots',
+                },
+                {
+                    point: 'Описание обучения',
+                    link: 'learning',
                 },
                 {
                     point: 'Контакты',
@@ -154,6 +179,7 @@ function Menu ({company}) {
             setMenu({});
         }
     }, [company]);
+
     return (
         <div className={style.menu}>
             {(menu.menu)&&menu.menu.map((point, index)=>(

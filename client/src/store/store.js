@@ -24,6 +24,10 @@ export default class Store {
         try{
             const response = await AuthService.login(login,password)
             localStorage.setItem('token',response.data.accessToken)
+            localStorage.setItem('user',response.data.user.name)
+            localStorage.setItem('admin',response.data.user.admin)
+            localStorage.setItem('avatar',response.data.user.avatar)
+            localStorage.setItem('login',response.data.user.login)
             this.setAuth(true)
             this.setUser(response.data.user)
         }catch (e){
@@ -34,6 +38,10 @@ export default class Store {
         try{
             const response = await AuthService.registration(login,password,tn,full_name,email,inn,moderator,account,unit)
             localStorage.setItem('token',response.data.accessToken)
+            localStorage.setItem('user',response.data.user.name)
+            localStorage.setItem('admin',response.data.user.admin)
+            localStorage.setItem('avatar',response.data.user.avatar)
+            localStorage.setItem('login',response.data.user.login)
             this.setAuth(true)
             this.setUser(response.data.user)
         }catch (e){
@@ -44,6 +52,10 @@ export default class Store {
         try{
             const response = await AuthService.logout()
             localStorage.removeItem('token')
+            localStorage.removeItem('user')
+            localStorage.removeItem('admin')
+            localStorage.removeItem('avatar')
+            localStorage.removeItem('login')
             this.setAuth(false)
             this.setUser({})
         }catch (e){
@@ -55,6 +67,10 @@ export default class Store {
         try{
             const response = await axios.get(`${API_URL}/auth/refresh`,{withCredentials:true})
             localStorage.setItem('token',response.data.accessToken)
+            localStorage.setItem('user',response.data.user.name)
+            localStorage.setItem('admin',response.data.user.admin)
+            localStorage.setItem('avatar',response.data.user.avatar)
+            localStorage.setItem('login',response.data.user.login)
             this.setAuth(true)
             this.setUser(response.data.user)
         }catch (e){

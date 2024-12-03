@@ -26,12 +26,33 @@ function AUP () {
     const [activeUpdate, setActiveUpdate] = useState(false)
     const [mandel, setMandel] = useState({})
 
-    const getMans = async()=>{
+    const getMans = async () => {
+        try {
+            const { data } = await NewsService.getAUP();
+
+            // Сортировка по priory от меньшего к большему
+            const sortedData = data.sort((a, b) => a.priory - b.priory);
+
+            // Установка отсортированных данных в состояние
+            setPeople(sortedData);
+
+            console.log(sortedData);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const reversePriory = async (value, index) => {
         try{
-            const {data} = await NewsService.getAUP()
-            setPeople(data)
-            console.log(data)
+            const newarr = [...people]
+            newarr[index].priory = value
+            setPeople(newarr)
+            const {data} = await NewsService.reversePrioryAUP({id: newarr[index].id, priory: value})
+            if(data){
+                getMans()
+            }
         }catch(e){
+
             console.log(e)
         }
     }
@@ -69,7 +90,9 @@ function AUP () {
                                     key={index}
                                     // ref={(el) => blockRefs.current[index] = el}
                                 >
-                                    <div className={style.photo} style={(man.image.length > 0)?{backgroundImage: `url('${man.image}')`}:{}}></div>
+                                    <div className={style.photo} style={(man.image.length > 0)?{backgroundImage: `url('${man.image}')`}:{}}>
+                                        <input type="number" className={style.priory} value={man.priory} onChange={(e)=>reversePriory(e.target.value, index)}/>
+                                    </div>
                                     <div className={style.fio}>
                                         <div className={style.name}>{man.firstname}</div>
                                         <div className={style.name}>{man.secondname}</div>

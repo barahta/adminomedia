@@ -1,7 +1,8 @@
 
 const config = require('config')
 const {News, Developers, AUPs, VakCompanies, Vakansii, About, GroupsComs, Activities, PacksKids, GalleryImages,
-    ContactsPage, ZonesPage
+    ContactsPage, ZonesPage, ZonesSlider,ProgramSlider,ProgramTrain, OurTrainers, GroupTrainers,MobileApp,PricesAvia,
+    ProgramLessons,TeachersAvia,LearnTheory
 } = require('../models/models')
 const ApiError = require("../exceptions/api.error");
 const {Sequelize} = require('sequelize')
@@ -16,13 +17,23 @@ class NewsService {
 
     }
     async createPost(post){
+
+
         const name = post.post.name
         const desc = post.post.desc
         const text = post.post.text
         const image = post.post.image
         const publ = post.post.public
+        const imagefull = post.post.imagefull
+        let newsDateTime
+        // if(post.post.newsDateTime.length > 0){
+            newsDateTime = post.post.newsDateTime
+        // } else {
+        //     newsDateTime = localDateTime
+        // }
+        let publishDateTime = post.post.publishDateTime
         try{
-            const post = await News.create({title: name, desc: desc, image: image, public: publ, text: text })
+            const post = await News.create({title: name, desc: desc, image: image, public: publ, text: text, imagefull, newsDateTime, publishDateTime })
             return post
         }catch(e){
             console.log(e)
@@ -30,12 +41,56 @@ class NewsService {
 
 
     }
+
+    async updatePost(thisnews){
+
+        const id = thisnews.id
+        try{
+            const news = await News.findByPk(id)
+            console.log(news)
+            news.title = thisnews.name
+            news.desc = thisnews.desc
+            news.image = thisnews.image
+            news.text = thisnews.text
+            news.public = thisnews.public
+            if(thisnews.imagefull.length>0){
+                news.imagefull = thisnews.imagefull
+            }
+            news.newsDateTime = thisnews.newsDateTime
+            news.publishDateTime = thisnews.publishDateTime
+            await news.save()
+            return news
+        }catch(e){
+            console.log(e)
+        }
+
+        return ''
+
+    }
+    async delNewsPost(news){
+        const id = news.id
+        const deleted = await News.findByPk(id)
+        return await deleted.destroy()
+    }
     async getAUP(){
         try{
             const mans = await AUPs.findAll({
                 order: [['id', 'ASC']] // сортировка по возрастанию id
             })
             return mans
+        }catch(e){
+            console.log(e)
+        }
+
+    }
+    async reversePrioryAUP(aup){
+        const id = aup.id
+        const priory = aup.priory
+        try{
+            const thisman = await AUPs.findByPk(id)
+            thisman.priory = +priory
+            await thisman.save()
+            return thisman
         }catch(e){
             console.log(e)
         }
@@ -95,9 +150,12 @@ class NewsService {
         }
 
     }
-    async getComVak(){
+    async getComVak(com){
+        const cat = com.com.com
+        console.log(com)
+        console.log(cat)
         try{
-            const coms = await VakCompanies.findAll()
+            const coms = await VakCompanies.findAll({where: {category: cat}})
             return coms
         }catch(e){
             console.log(e)
@@ -127,7 +185,9 @@ class NewsService {
     }
     async getVakansii(){
         try{
-            const vaks = await Vakansii.findAll()
+            const vaks = await Vakansii.findAll({
+                order: [['id', 'DESC']] // Сортировка по убыванию по полю id
+            })
             return vaks
         }catch(e){
             console.log(e)
@@ -167,7 +227,6 @@ class NewsService {
 
         try{
             const search = await About.findOne({where: {company: com.com.company}})
-            console.log(search)
             if(search){
                 return search
             }else{
@@ -286,11 +345,12 @@ class NewsService {
         const name = pack.name
         const time = pack.time
         const desc = pack.desc
+        const publicdesc = pack.publicdesc
         const price = pack.price
         const image = pack.image
         const priory = +pack.priory
         try{
-            const newpack = await PacksKids.create({capter, name, time, desc, price, priory, image})
+            const newpack = await PacksKids.create({capter, name, time, desc, price, priory, image, publicdesc})
             return newpack
         }catch(e){
             console.log(e)
@@ -310,7 +370,6 @@ class NewsService {
     }
     async editPrioryPack(priory){
 
-        console.log(priory)
         const id = priory.id
         const value = priory.priory
         try{
@@ -324,7 +383,6 @@ class NewsService {
     }
     async updatePack(pack){
 
-        console.log(pack)
         const id = pack.id
         try{
             const itogy = await PacksKids.findByPk(id)
@@ -332,6 +390,7 @@ class NewsService {
             itogy.name = pack.name
             itogy.time = pack.time
             itogy.desc = pack.desc
+            itogy.publicdesc = pack.publicdesc
             itogy.price = pack.price
             itogy.image = pack.image
             itogy.priory = +pack.priory
@@ -353,9 +412,7 @@ class NewsService {
     }
     async getGalleryImgs(capter){
 
-        console.log(capter)
         const com = capter.capter
-        console.log(com)
         try{
             const places = await GalleryImages.findAll({
                 where: { capter: com },
@@ -389,6 +446,20 @@ class NewsService {
             }else{
                 const createdcity = await ContactsPage.create({capter, city})
                 return createdcity
+            }
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async getMobileURLs(contact){
+        const capter = contact.capter
+        try{
+            const search = await MobileApp.findOne({where: {capter: capter}})
+            if(search){
+                return search
+            }else{
+                const creater = await MobileApp.create({capter})
+                return creater
             }
         }catch(e){
             console.log(e)
@@ -435,7 +506,6 @@ class NewsService {
         }
     }
     async createZone(zone){
-        console.log(zone)
         const name = zone.name
         const desc = zone.desc
         const capter = zone.capter
@@ -467,6 +537,7 @@ class NewsService {
         }
         return ''
     }
+
     async getZones(capter){
 
         const com = capter.capter
@@ -512,6 +583,500 @@ class NewsService {
             }
         }catch(e){
             console.log(e)
+        }
+    }
+    async updateURLMobileAPP(zone){
+        const android = zone.android
+        const apple = zone.apple
+        const capter = zone.capter
+        try{
+            const search = await MobileApp.findOne({where: {capter}})
+            if(search){
+                search.android = android
+                search.apple = apple
+
+                await search.save()
+                return search
+            }
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async plusZoneSlider(zone){
+        const name = zone.name
+        const desc = zone.desc
+        const capter = zone.capter
+        const priory = zone.priory
+        const image = zone.image
+        try{
+            const created = await ZonesSlider.create({
+                name,
+                desc,
+                capter,
+                priory,
+                image
+            })
+            return created
+        }catch(e){
+            console.log(e)
+        }
+        return ''
+    }
+    async getZonesSlides(capter){
+
+        const com = capter.capter
+        try{
+            const places = await ZonesSlider.findAll({
+                where: { capter: com },
+                order: [['id', 'DESC']] // сортировка по возрастанию id
+            });
+            return places
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async editprioryzoneslider(zone){
+        const id = zone.id
+        const priory = zone.priory
+        try{
+            const search = await ZonesSlider.findOne({where: {id: id}})
+            if(search){
+                search.priory = priory
+                await search.save()
+                return search
+            }
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async delZoneSlider(zone){
+        const id = zone.id
+        const deleted = await ZonesSlider.findByPk(id)
+        return await deleted.destroy()
+    }
+    async getProgramsSlides(capter){
+
+        const com = capter.capter
+        try{
+            const places = await ProgramSlider.findAll({
+                where: { capter: com },
+                order: [['id', 'DESC']] // сортировка по возрастанию id
+            });
+            return places
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async getProgramsPage(capter){
+
+        const com = capter.capter
+        try{
+            const places = await ProgramTrain.findAll({
+                where: { capter: com },
+                order: [['id', 'DESC']] // сортировка по возрастанию id
+            });
+            return places
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async getTrenersMan(capter){
+
+        const com = capter.capter
+        try{
+            const places = await OurTrainers.findAll({
+                where: { capter: com },
+                order: [['id', 'DESC']] // сортировка по возрастанию id
+            });
+            return places
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async plusProgramSlider(zone){
+        const name = zone.name
+        const room = zone.desc
+        const capter = zone.capter
+        const image = zone.image
+        try{
+            const created = await ProgramSlider.create({
+                name,
+                room,
+                capter,
+                image
+            })
+            return created
+        }catch(e){
+            console.log(e)
+        }
+        return ''
+    }
+    async plusProgramPage(zone){
+        const name = zone.name
+        const desc = zone.desc
+        const room = zone.room
+        const capter = zone.capter
+        const image = zone.image
+        try{
+            const created = await ProgramTrain.create({
+                name,
+                desc,
+                room,
+                capter,
+                image
+            })
+            return created
+        }catch(e){
+            console.log(e)
+        }
+        return ''
+    }
+    async plusTrenersGroup(group){
+        const name = group.name
+        const desc = group.desc
+        const capter = group.capter
+        try{
+            const created = await GroupTrainers.create({
+                name,
+                desc,
+                capter
+            })
+            return created
+        }catch(e){
+            console.log(e)
+        }
+        return ''
+    }
+    async plusTrenerMan(man){
+        const image = man.image
+        const room = man.room
+        const name = man.name
+        const group = man.group
+        const desc = man.desc
+        const stazh = man.stazh
+        const capter = man.capter
+
+        try{
+            const created = await OurTrainers.create({
+                image,
+                room,
+                name,
+                group,
+                desc,
+                stazh,
+                capter
+            })
+            return created
+        }catch(e){
+            console.log(e)
+        }
+        return ''
+    }
+    async getTrenersGroup(capter){
+
+        const com = capter.capter
+        try{
+            const places = await GroupTrainers.findAll({
+                where: { capter: com },
+                order: [['id', 'DESC']] // сортировка по возрастанию id
+            });
+            return places
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async delProgramSlider(zone){
+        const id = zone.id
+        const deleted = await ProgramSlider.findByPk(id)
+        return await deleted.destroy()
+    }
+    async delProgramPage(zone){
+        const id = zone.id
+        const deleted = await ProgramTrain.findByPk(id)
+        return await deleted.destroy()
+    }
+    async delTrenersGroup(zone){
+        const id = zone.id
+        const deleted = await GroupTrainers.findByPk(id)
+        return await deleted.destroy()
+    }
+    async delTrenerMan(zone){
+        const id = zone.id
+        const deleted = await OurTrainers.findByPk(id)
+        return await deleted.destroy()
+    }
+    async delPacks(zone){
+        const id = zone.id
+        const deleted = await PacksKids.findByPk(id)
+        return await deleted.destroy()
+    }
+    async getAllPticesAvia(capter){
+
+        const com = capter.capter
+        try{
+            const places = await PricesAvia.findAll({
+                where: { capter: com },
+                order: [['id', 'DESC']] // сортировка по возрастанию id
+            });
+            return places
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async getProgramsAvia(capter){
+
+        const com = capter.capter
+        try{
+            const places = await ProgramLessons.findAll({
+                where: { capter: com },
+                order: [['id', 'DESC']] // сортировка по возрастанию id
+            });
+            return places
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async createPriceAvia(program){
+
+        const capter = program.capter
+        const name = program.name
+        const description = program.description
+        const priceour = program.priceour
+        const priceyour = program.priceyour
+        const time = program.time
+        const theory = program.theory
+        const practice = program.practice
+        const programs = program.programs
+        const discounts = program.discounts
+        try{
+            const created = await PricesAvia.create({
+                capter,
+                name,
+                description,
+                priceour,
+                priceyour,
+                time,
+                theory,
+                practice,
+                programs,
+                discounts,
+            })
+            return created
+        }catch(e){
+            console.log(e)
+        }
+        return ''
+    }
+    async editPriceAvia(program){
+        const id = program.id
+        const name = program.name
+        const description = program.description
+        const priceour = program.priceour
+        const priceyour = program.priceyour
+        const time = program.time
+        const theory = program.theory
+        const practice = program.practice
+        const programs = program.programs
+        const discounts = program.discounts
+        try{
+            const search = await PricesAvia.findOne({where: {id}})
+            if(search){
+                search.name = name
+                search.description = description
+                search.priceour = priceour
+                search.priceyour = priceyour
+                search.time = time
+                search.theory = theory
+                search.practice = practice
+                search.programs = programs
+                search.discounts = discounts
+
+                await search.save()
+                return search
+            }
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async delPrice(program){
+        const id = program.id
+        const deleted = await PricesAvia.findByPk(id)
+        return await deleted.destroy()
+    }
+    async editPrioryPrice(priory){
+
+        const id = priory.id
+        const value = priory.priory
+        try{
+            const pack = await PricesAvia.findByPk(id)
+            pack.priory = +value
+            await pack.save()
+            return pack
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async createTeacherAvia(teacher){
+
+        const name = teacher.name
+        const dev = teacher.dev
+        const desc = teacher.desc
+        const photo = teacher.image
+        const capter = teacher.capter
+        try{
+            const created = await TeachersAvia.create({
+                name,
+                dev,
+                desc,
+                photo,
+                capter,
+                priory: 0
+            })
+            return created
+        }catch(e){
+            console.log(e)
+        }
+        return ''
+    }
+    async getTeachersAvia(capter){
+
+        const com = capter.company
+        try{
+            const places = await TeachersAvia.findAll({
+                where: { capter: com },
+                order: [['id', 'DESC']] // сортировка по возрастанию id
+            });
+            return places
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async prioryTeachersAvia(priory){
+
+        const id = priory.id
+        const value = priory.priory
+        try{
+            const pack = await TeachersAvia.findByPk(id)
+            pack.priory = +value
+            await pack.save()
+            return pack
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    async editTeacherAvia(teacher){
+
+        const id = teacher.id
+        const name = teacher.name
+        const dev = teacher.dev
+        const desc = teacher.desc
+        const photo = teacher.image
+        try{
+            const search = await TeachersAvia.findByPk(id)
+            search.name = name
+            search.dev = dev
+            search.desc = desc
+            search.photo = photo
+            await search.save()
+            return search
+        }catch(e){
+            console.log(e)
+        }
+        return ''
+    }
+    async delTeacherAvia(teacher){
+        const id = teacher.id
+        const deleted = await TeachersAvia.findByPk(id)
+        return await deleted.destroy()
+    }
+    async getLearnTeory(capter){
+
+        const com = capter.capter
+        console.log(capter)
+        try{
+
+            const places = await LearnTheory.findOne({
+                where: { capter: com },
+            });
+
+            if(places){
+                console.log('!! - Здесь  !!')
+                return places
+            }else{
+
+                console.log('!! - Тут  !!')
+                const created = await LearnTheory.create({
+                    capter: com,
+                    learn: [],
+                    theory: {
+                        desc: '',
+                        list: []
+                    }
+
+
+                })
+                return created
+            }
+        }catch(e){
+            console.log(e)
+        }
+    }
+    async editTheoryDesc(theory) {
+        const { capter, desc } = theory; // Деструктуризация для удобства
+
+        try {
+            // Находим запись по значению capter
+            const search = await LearnTheory.findOne({ where: { capter } });
+
+            if (!search) {
+                throw new Error(`Запись с capter: "${capter}" не найдена.`);
+            }
+
+            // Обновляем поле theory
+            search.theory = desc;
+            await search.save();
+
+            return search;
+        } catch (e) {
+            console.error("Ошибка при обновлении теории:", e.message);
+            throw e; // Рекомендуется пробросить ошибку дальше, если нужно обработать её выше
+        }
+    }
+    async createListLeart(points) {
+        const { capter, learn } = points; // Деструктуризация для удобства
+
+        try {
+            // Находим запись по значению capter
+            const search = await LearnTheory.findOne({ where: { capter } });
+
+
+            // Обновляем поле theory
+            search.learn = learn;
+            await search.save();
+
+            return search;
+        } catch (e) {
+            console.error("Ошибка при обновлении теории:", e.message);
+            throw e; // Рекомендуется пробросить ошибку дальше, если нужно обработать её выше
+        }
+    }
+    async createListTheory(points) {
+        const { capter, desc } = points; // Деструктуризация для удобства
+
+        try {
+            // Находим запись по значению capter
+            const search = await LearnTheory.findOne({ where: { capter } });
+
+
+            // Обновляем поле theory
+            search.theory = desc;
+            await search.save();
+
+            return search;
+        } catch (e) {
+            console.error("Ошибка при обновлении теории:", e.message);
+            throw e; // Рекомендуется пробросить ошибку дальше, если нужно обработать её выше
         }
     }
 }

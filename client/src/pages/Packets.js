@@ -49,6 +49,18 @@ function Packets () {
         }
     }
 
+    const delPacks = async (id, name) =>{
+        try{
+            const {data} = await NewsService.delPacks({id})
+            if(data){
+                message('Пакет "' + name + '" удален')
+                getPacks()
+            }
+        }catch(e){
+            console.log(e)
+        }
+    }
+
     useEffect(()=>{
         getPacks()
     },[plusPack, editPack])
@@ -98,7 +110,7 @@ function Packets () {
                                 </div>
                                 <div className={style.line_multi}>
                                     <div className={style.line_edit} onClick={()=>{setData(line); setEditPack(true)}}><i className="fa-solid fa-pen-to-square"/></div>
-                                    <div className={style.line_del}><i className="fa-solid fa-trash-can"/></div>
+                                    <div className={style.line_del} onClick={()=>delPacks(line.id, line.name)}><i className="fa-solid fa-trash-can"/></div>
                                 </div>
                             </div>
                         ))}
