@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {useMessage} from "../../hooks/message.hook";
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import {useLocation} from "react-router-dom";
 
 const ITEM_TYPE = 'POINT';
 
@@ -48,7 +49,9 @@ function DraggablePoint({ point, index, movePoint, listType, RedataText, delPara
 function OpenVak({thisvak,setThisvak,setActivemodal}){
 
     const message = useMessage();
-
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const searchcompany = params.get('com');
     const [mainName, setMainName] = useState('')
     const [allcoms, setAllcoms] = useState([])
     const [respon, setRespon] = useState('')
@@ -238,7 +241,7 @@ function OpenVak({thisvak,setThisvak,setActivemodal}){
 
     const getVakCompany = async()=>{
         try {
-            const {data}=await NewsService.getComVak()
+            const {data}=await NewsService.getComVak({com: searchcompany})
             setAllcoms(data)
         }catch(e){
             console.log(e)

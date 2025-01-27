@@ -42,6 +42,10 @@ export default class NewsService{
         console.log(vak)
         return $api.post('/views/editvak', {vak})
     }
+    static editOpenVak(vak){
+        console.log(vak)
+        return $api.post('/views/editopenvak', {vak})
+    }
     static delTisVak(vak){
 
         console.log(vak)
@@ -96,6 +100,9 @@ export default class NewsService{
     }
     static getGalleryImgs(capter){
         return $api.post('/views/getgalleryimgs', capter)
+    }
+    static deleteImgGalary(image){
+        return $api.post('/views/deleteimggalary', image)
     }
     static getCities(capter){
         return $api.post('/views/getcities', capter)

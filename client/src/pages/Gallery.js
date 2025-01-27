@@ -55,6 +55,8 @@ function Gallery() {
         }
     }
 
+
+
     const getGalleryImgs = async () => {
         try{
             const {data} = await NewsService.getGalleryImgs({capter: company})
@@ -64,6 +66,19 @@ function Gallery() {
             }
         }catch(e){
             console.log(e)
+        }
+    }
+
+    const deleteImage = async (idimg, nameimg) =>{
+        try{
+            const {data} = await NewsService.deleteImgGalary({id: idimg, name: nameimg})
+            message('Изображение удалено')
+            if(data){
+                getGalleryImgs()
+            }
+        }catch(e){
+            console.log(e)
+            message('Попробуйте еще раз')
         }
     }
     // getGalleryImgs
@@ -160,7 +175,8 @@ function Gallery() {
                         {/*<WriteModal activemodal={activemodal} setActivemodal={setActivemodal} data={<OpenImg img={data} />} setData={setData}/>*/}
                         <div className={style.grid} ref={containerRef}>
                             {allImgs.map((image, index) =>{ if(index<more){return(
-                                <div key={index} className={style.item} >
+                                <div key={index} className={style.item} onClick={()=>deleteImage(image.id, image.image)}>
+                                    <div className={style.backitem}><i className="fa-solid fa-trash-can"></i></div>
                                     <img src={`${image.image}`} alt={`Gallery ${index}`} />
                                     <div className={style.black}><div className={style.delimg}>х</div></div>
                                 </div>

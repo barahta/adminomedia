@@ -93,6 +93,28 @@ function Vakansii () {
         setOpenVakactive(true)
     }
 
+    const reversOpenVak = async (index, id, openclose, name) => {
+        console.log(index)
+        console.log(id)
+        console.log(!openclose)
+        const newarr = [...listVaks]
+        newarr[index].open = !openclose
+        setListVaks(newarr)
+        try{
+            const {data} = await NewsService.editOpenVak({id, open: !openclose})
+            if(data){
+                if(!openclose){
+                    message('Выключено')
+                }else{
+                    message('Включено')
+                }
+
+            }
+        }catch(e){
+            console.log(e)
+        }
+    }
+
     useEffect(()=>{
         getComVak()
     },[])
@@ -143,7 +165,7 @@ function Vakansii () {
                                         <div className={style.active}>
                                             <div className={style.open}><i className="fa-solid fa-trash" onClick={()=>delThisVak(vak.id)}></i></div>
                                             <div className={style.open}><i className="fa-regular fa-eye" onClick={()=>editVak(vak)}></i></div>
-                                            <div className={(vak.open)?style.btnoff:style.btnon}>
+                                            <div className={(vak.open)?style.btnoff:style.btnon} onClick={()=>reversOpenVak(indexvak, vak.id, vak.open, vak.name)}>
                                                 <div className={style.sphere}></div>
                                             </div>
                                         </div>

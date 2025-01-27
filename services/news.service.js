@@ -162,6 +162,26 @@ class NewsService {
         }
 
     }
+    async editOpenVak(vak){
+
+        const id = vak.vak.id
+        const open = vak.vak.open
+
+        console.log(id)
+        console.log(open)
+
+        try{
+            const thisvak = await Vakansii.findByPk(id)
+            thisvak.open = open
+            await thisvak.save()
+            return thisvak
+        }catch(e){
+            console.log(e)
+        }
+
+
+
+    }
     async delComVak(com){
         const idcom = +com.com.com.id
         const deleted = await VakCompanies.findByPk(idcom)
@@ -422,6 +442,26 @@ class NewsService {
         }catch(e){
             console.log(e)
         }
+    }
+    async deleteImgGalary(image){
+        try {
+            const id = +image.id
+            console.log(id)
+            const deleted = await GalleryImages.findByPk(id)
+            return await deleted.destroy()
+        }catch(e){
+            console.log(e)
+        }
+
+        // try{
+        //     const places = await GalleryImages.findAll({
+        //         where: { capter: com },
+        //         order: [['id', 'ASC']] // сортировка по возрастанию id
+        //     });
+        //     return places
+        // }catch(e){
+        //     console.log(e)
+        // }
     }
     async getCities(capter){
 

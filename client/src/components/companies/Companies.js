@@ -63,7 +63,11 @@ function Companies (){
                 <img src="/files/companies/aviatech.svg" alt=""/>
                 <div className={style.active}></div>
             </Link>
-            {/*<Link to='/company?com=surgut24' className={style.company}>*/}
+            <Link to='/company?com=music' className={style.company} style={(avatar === 'music' || admin === true || login === 'barahtasurgut')?{}:{display: 'none'}}>
+                <img src="/files/companies/music.svg" alt=""/>
+                <div className={style.active}></div>
+            </Link>
+            {/*<Link to='/company?com=music' className={style.company}>*/}
             {/*    <img src="/files/companies/24surgut.svg" alt=""/>*/}
             {/*    <div className={style.active}></div>*/}
             {/*</Link>*/}

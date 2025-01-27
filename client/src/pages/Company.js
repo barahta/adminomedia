@@ -169,7 +169,32 @@ function Menu ({company}) {
                     link: 'about',
                 }
             ]
-        }
+        },
+        {
+            com: 'music',
+            menu: [
+                // {
+                //     point: 'Промо ролик',
+                //     link: 'promo',
+                // },
+                // {
+                //     point: 'Пакеты',
+                //     link: 'packs',
+                // },
+                {
+                    point: 'Галерея',
+                    link: 'projects',
+                },
+                {
+                    point: 'Контакты',
+                    link: 'contacts',
+                },
+                {
+                    point: 'О нас',
+                    link: 'about',
+                }
+            ]
+        },
     ]
     useEffect(() => {
         const foundMenu = coms.find(item => item.com === company);

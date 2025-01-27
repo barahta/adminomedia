@@ -1,10 +1,20 @@
 const NewsService = require('../services/news.service')
 const {Files, Developers} = require('../models/models')
-// const fs = require('fs');
+const fs = require('fs');
 // const FileDto = require('../dtos/fileDto')
 const config = require('config')
 const PATH = require('path')
+// const path = require("path");
 // const DevelopersService = require("../services/developers.service");
+
+// const delFileGalary = async (image) => {
+//     try {
+//
+//
+//     } catch (e) {
+//         console.log(e)
+//     }
+// }
 
 class NewsController {
     async getNews(req, res, next) {
@@ -81,10 +91,10 @@ class NewsController {
             next(e)
         }
     }
-    async plusComVak(req, res, next) {
+    async editOpenVak(req, res, next) {
         try {
-            const com = req.body
-            const itog = await NewsService.plusComVak(com)
+            const vak = req.body
+            const itog = await NewsService.editOpenVak(vak)
             return res.status(200).json(itog)
         } catch (e) {
             next(e)
@@ -292,6 +302,30 @@ class NewsController {
             return res.status(200).json(itogy)
         } catch (e) {
             next(e)
+        }
+    }
+
+    async deleteImgGalary(req, res, next) {
+        try {
+            const image = req.body;
+            const itogy = await NewsService.deleteImgGalary(image);
+
+            if (itogy) {
+                const path = PATH.join(config.get('public_path'), 'gallery', 'company', `${image.name.split('/')[3]}`);
+                console.log(path);
+
+                fs.unlink(path, (err) => {
+                    if (err) {
+                        // return res.status(500).json({ message: `Ошибка при удалении файла: ${err}` });
+                    }
+                    // Здесь мы отправляем ответ, когда файл успешно удален, включая itogy
+                    return res.status(200).json({ message: 'Файл удален', itogy }); // Возможно, нужно вернуть itogy
+                });
+            } else {
+                return res.status(404).json({ message: 'Нет файла для удаления или он не найден' }); // Если itogy не истинно
+            }
+        } catch (e) {
+            next(e);
         }
     }
     async getCities(req, res, next) {
