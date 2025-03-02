@@ -14,7 +14,7 @@ export default function AuthPage(){
 
     // const firstReg = async () => {
     //     try{
-    //         const {data} = await AuthService.registration({login: 'leskin',password: 'Nikita2024',tn: '41002341',name: 'Лескин Никита',email: ''})
+    //         const {data} = await AuthService.registration({login: 'kelina',password: 'Alex290125',tn: '41002342',name: 'Александра Келина',email: ''})
     //         console.log('Регистрация успешна')
     //     }catch{
     //         console.log('не зарегистрировал')
